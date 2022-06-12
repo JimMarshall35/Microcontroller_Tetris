@@ -1,0 +1,17 @@
+../Core/Src/LcdGraphics.c:68:6:UpdateScreenRegionsToUpdate_ClearedFrameBuffer	16	static
+../Core/Src/LcdGraphics.c:76:6:gfxClearFrameBuffer	8	static
+../Core/Src/LcdGraphics.c:81:6:gfxPlotPixelInternal	24	static
+../Core/Src/LcdGraphics.c:87:6:UpdateScreenRegionsToUpdate_SinglePixel	24	static
+../Core/Src/LcdGraphics.c:105:6:gfxPlotPixel	16	static
+../Core/Src/LcdGraphics.c:113:6:UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen	24	static
+../Core/Src/LcdGraphics.c:121:6:gfxCopyAreaOfFrameBufferToScreen	32	static
+../Core/Src/LcdGraphics.c:130:6:gfxDrawLineNaive	64	static
+../Core/Src/LcdGraphics.c:169:6:gfxDrawLineBresenhamLow	48	static
+../Core/Src/LcdGraphics.c:192:6:gfxDrawLineBresenhamHigh	48	static
+../Core/Src/LcdGraphics.c:216:6:gfxDrawLine	24	static
+../Core/Src/LcdGraphics.c:237:6:UpdateScreenRegionsToUpdate_LineDrawn	24	static
+../Core/Src/LcdGraphics.c:255:6:gfxFinishDrawing	64	static
+../Core/Src/LcdGraphics.c:289:19:gfxWriteBytes	32	static
+../Core/Src/LcdGraphics.c:329:6:gfxWriteTextLineToFrameBuffer	120	static
+../Core/Src/LcdGraphics.c:359:6:UpdateScreenRegionsToUpdate_TextDrawn	24	static
+../Core/Src/LcdGraphics.c:369:6:gfxMidPointCircleDraw	40	static
