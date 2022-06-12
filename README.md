@@ -8,4 +8,4 @@ re drawing the entire lcd screen.
 
 Includes a python script that can convert 84 x 48 monocrhrome pngs into code for a c array that can be drawn directly to the screen.
 
-is a stm cube ide project and uses cube mx and the stm HAL libraries
+is an stm cube ide project and uses cube mx and the stm HAL libraries
