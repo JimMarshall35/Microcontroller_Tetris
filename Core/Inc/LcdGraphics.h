@@ -14,6 +14,7 @@
 
 #include <stdint.h>
 #include "BasicTypedefs.h"
+#include "lcd_pcd8544_ll.h"
 
 
 // typedefs
@@ -33,7 +34,9 @@ void gfxPlotPixel(u8 x, u8 y);
 void gfxClearFrameBuffer();
 void gfxCopyAreaOfFrameBufferToScreen(LCD_PCD8544_screen_t* scr, u8 rowStart, u8 rowStop, u8 colStart, u8 colStop); // rows not per pixel, per byte row 0-5
 void gfxDrawLine(u8 x1, u8 y1, u8 x2, u8 y2);
+void gfxDrawAxisAlignedRect(u8 tlX, u8 tlY, u8 brX, u8 brY);
 void gfxFinishDrawing(LCD_PCD8544_screen_t* scr);
 void gfxWriteTextLineToFrameBuffer(u8 vIndex, u8 hIndex, const char* string);
 void gfxMidPointCircleDraw(int x_centre, int y_centre, int r);
+void UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(u8 rowStart, u8 rowStop, u8 colStart, u8 colStop);
 #endif /* INC_LCDGRAPHICS_H_ */

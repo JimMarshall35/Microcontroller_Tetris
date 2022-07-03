@@ -24,6 +24,8 @@
 #include "lcd_pcd8544.h"
 #include "LcdGraphics.h"
 #include "BasicTypedefs.h"
+#include "TetrisGame.h"
+
 
 /* USER CODE END Includes */
 
@@ -49,7 +51,6 @@ SPI_HandleTypeDef hspi1;
 TIM_HandleTypeDef htim2;
 
 /* USER CODE BEGIN PV */
-uint16_t AD_RES = 0;
 
 /* USER CODE END PV */
 
@@ -65,7 +66,7 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void AnalogStickTest();
+
 
 /* USER CODE END 0 */
 
@@ -101,7 +102,7 @@ int main(void)
   MX_ADC2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   // Calibrate The ADC On Power-Up For Better Accuracy
   //HAL_ADCEx_Calibration_Start(&hadc2);
 
@@ -118,6 +119,7 @@ int main(void)
 
   // LCD - initialize
   LCD_PCD8544_init(&gLcdScreen);
+
 
     // LCD - welcome screen
   //LCD_PCD8544_write_line(&gLcdScreen, 0, "Jim Marshall");
@@ -157,12 +159,17 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+   srand(time(NULL));   // Initialization, should only be called once.
+   TetrisGame_Init();
+
+
+
   while (1)
   {
+	  TetrisGame(125);
 
-	  AnalogStickTest();
 
-	  HAL_Delay(20);
+	  HAL_Delay(125);
 
     /* USER CODE END WHILE */
 
@@ -335,7 +342,6 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 0 */
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
   TIM_MasterConfigTypeDef sMasterConfig = {0};
   TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -348,15 +354,6 @@ static void MX_TIM2_Init(void)
   htim2.Init.Period = 4294967295;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_Init(&htim2) != HAL_OK)
   {
     Error_Handler();
@@ -371,14 +368,13 @@ static void MX_TIM2_Init(void)
   sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
-  HAL_TIM_MspPostInit(&htim2);
 
 }
 
@@ -417,8 +413,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /*Configure GPIO pins : BUTTON_B_Pin ANALOGUE_STICK_BUTTON_Pin */
+  GPIO_InitStruct.Pin = BUTTON_B_Pin|ANALOGUE_STICK_BUTTON_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
 }
 
+/* USER CODE BEGIN 4 */
 #define TWELVE_BIT_MAX 4095
 void DrawCursor(u16 adcX, u16 adcY){
 	f32 FractionDeviationFromCenterX = (f32)adcX / (f32)TWELVE_BIT_MAX;
@@ -432,54 +435,23 @@ void DrawCursor(u16 adcX, u16 adcY){
 	f32 pixelPosY = FractionDeviationFromCenterY * (f32)PIXELS_HEIGHT;
 	/*
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX - 1, (PIXELS_HEIGHT/2.0f)+pixelPosY);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX + 1, (PIXELS_HEIGHT/2.0f)+pixelPosY);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY - 1);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY + 1);
-
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX - 2, (PIXELS_HEIGHT/2.0f)+pixelPosY);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX + 2, (PIXELS_HEIGHT/2.0f)+pixelPosY);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY - 2);
 	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY + 2);
-
 	*/
-	gfxMidPointCircleDraw((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY,6);
+	//gfxMidPointCircleDraw((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY,6);
+	gfxDrawAxisAlignedRect((PIXELS_WIDTH/2.0f)+pixelPosX - 2, (PIXELS_HEIGHT/2.0f)+pixelPosY -2, (PIXELS_WIDTH/2.0f)+pixelPosX + 2, (PIXELS_HEIGHT/2.0f)+pixelPosY +2);
 
 }
 
-/* USER CODE BEGIN 4 */
-void AnalogStickTest(){
-	//LCD_PCD8544_clear_ram(&gLcdScreen);
-	HAL_ADC_Start(&hadc2);
-	// Poll ADC1 Perihperal & TimeOut = 1mSec
-	HAL_ADC_PollForConversion(&hadc2, 1);
-	// Read The ADC Conversion Result & Map It To PWM DutyCycle
-	AD_RES = HAL_ADC_GetValue(&hadc2);
-	uint16_t y = AD_RES;
 
-	// Start ADC Conversion
-	HAL_ADC_Start(&hadc2);
-	// Poll ADC1 Perihperal & TimeOut = 1mSec
-	HAL_ADC_PollForConversion(&hadc2, 1);
-	// Read The ADC Conversion Result & Map It To PWM DutyCycle
-	AD_RES = HAL_ADC_GetValue(&hadc2);
-	uint16_t x = AD_RES;
-	x &= 0xfff;
-	y &= 0xfff;
-	char xString[10];// = {'x','=',' ',' ',' ',' ',' ',0x00};
-	char yString[10]; // = {'y','=',' ',' ',' ',' ',' ',0x00};
-	sprintf(xString,"x = %d", x);
-	sprintf(yString,"y = %d", y);
-	gfxClearFrameBuffer();
-	gfxWriteTextLineToFrameBuffer(0,0,xString);
-	gfxWriteTextLineToFrameBuffer(1,0,yString);
 
-	DrawCursor(x,y);
-	gfxFinishDrawing(&gLcdScreen);
-	//LCD_PCD8544_write_line(&gLcdScreen, 1, xString);
-	//LCD_PCD8544_write_line(&gLcdScreen, 2, yString);
-}
+
 /* USER CODE END 4 */
 
 /**
@@ -493,6 +465,7 @@ void Error_Handler(void)
   __disable_irq();
   while (1)
   {
+
   }
   /* USER CODE END Error_Handler_Debug */
 }

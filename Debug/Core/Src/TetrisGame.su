@@ -1,0 +1,9 @@
+../Core/Src/TetrisGame.c:43:6:Write_Flash	16	static
+../Core/Src/TetrisGame.c:48:4:GetRandomNumberBetweenZeroAndSix	8	static
+../Core/Src/TetrisGame.c:53:6:DrawStationaryBlock	24	static
+../Core/Src/TetrisGame.c:58:6:OnLinesCleared	16	static
+../Core/Src/TetrisGame.c:76:6:OnGameOver	4	static
+../Core/Src/TetrisGame.c:81:6:IncrementTetrisTimer	16	static
+../Core/Src/TetrisGame.c:91:6:WriteScoreToFrameBuffer	16	static
+../Core/Src/TetrisGame.c:98:6:TetrisGame	40	static
+../Core/Src/TetrisGame.c:147:6:TetrisGame_Init	24	static

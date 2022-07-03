@@ -32,7 +32,7 @@ Core/Src/LcdGraphics.o: ../Core/Src/LcdGraphics.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  ../Core/Inc/font6x8.h ../Core/Inc/LcdGraphics.h \
- ../Core/Inc/BasicTypedefs.h
+ ../Core/Inc/BasicTypedefs.h ../Core/Inc/lcd_pcd8544_ll.h
 ../Core/Inc/lcd_pcd8544_ll.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
@@ -68,3 +68,4 @@ Core/Src/LcdGraphics.o: ../Core/Src/LcdGraphics.c \
 ../Core/Inc/font6x8.h:
 ../Core/Inc/LcdGraphics.h:
 ../Core/Inc/BasicTypedefs.h:
+../Core/Inc/lcd_pcd8544_ll.h:

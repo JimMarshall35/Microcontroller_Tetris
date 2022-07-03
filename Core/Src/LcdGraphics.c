@@ -78,10 +78,64 @@ void gfxClearFrameBuffer(){
 	UpdateScreenRegionsToUpdate_ClearedFrameBuffer();
 }
 
-void gfxPlotPixelInternal(u8 x, u8 y){
+void gfxClearFrameBufferRect(u8 pixelsTopLeftX, u8 pixelsTopLeftY, u8 pixelsBottomRightX, u8 pixelsBottomRightY){
+	/*  */
 
+	int screenYIndexTL = ((pixelsTopLeftY / 8)*PIXELS_WIDTH);
+
+
+	int screenYIndexBR = ((pixelsBottomRightY / 8)*PIXELS_WIDTH);
+
+	int screenYIndexRemainderTL = pixelsTopLeftY % 8;
+	int screenYIndexRemainderBR = pixelsBottomRightY % 8;
+
+	if(screenYIndexBR == screenYIndexTL){
+		u32 bitMask = 0;
+		for(int pixelRow = screenYIndexRemainderTL; pixelRow <=screenYIndexRemainderBR; pixelRow++){
+			bitMask |= (1 << pixelRow);
+		}
+		for(int i = pixelsTopLeftX; i <= pixelsBottomRightX; i++){
+			gFrameBuffer[screenYIndexTL + i] &= ~(bitMask);
+		}
+	}
+	else{
+		for(int row = screenYIndexTL; row <= screenYIndexBR; row++){
+			if(row == screenYIndexTL){
+				u32 bitMask = 0;
+				for(int pixelRow = screenYIndexRemainderTL; row < 8; pixelRow++){
+					bitMask |= (1 << pixelRow);
+				}
+				for(int i = pixelsTopLeftX; i <= pixelsBottomRightX; i++){
+					gFrameBuffer[screenYIndexTL + i] &= ~(bitMask);
+				}
+			}
+			else if(row == screenYIndexBR){
+				u32 bitMask = 0;
+				for(int pixelRow = screenYIndexRemainderTL; row >= 0; pixelRow--){
+					bitMask |= (1 << pixelRow);
+
+				}
+				for(int i = pixelsTopLeftX; i <= pixelsBottomRightX; i++){
+					gFrameBuffer[screenYIndexBR + i] &= ~(bitMask);
+				}
+
+			}
+			else{
+				memset(gFrameBuffer + (row * PIXELS_WIDTH)+pixelsTopLeftX, 0, (pixelsBottomRightX - pixelsTopLeftX));
+			}
+		}
+	}
+
+
+}
+
+void gfxPlotPixelInternal(u8 x, u8 y){
+	if(x >= 84 || y >= 47){
+		return;
+	}
 	int indexOfSliceContainingPixel = ((y / 8)*PIXELS_WIDTH) + x;
-	gFrameBuffer[indexOfSliceContainingPixel] |= (1 << (y % 8));
+	if(indexOfSliceContainingPixel < sizeof(gFrameBuffer))
+		gFrameBuffer[indexOfSliceContainingPixel] |= (1 << (y % 8));
 }
 
 void UpdateScreenRegionsToUpdate_SinglePixel(u8 x, u8 y){
@@ -103,9 +157,6 @@ void UpdateScreenRegionsToUpdate_SinglePixel(u8 x, u8 y){
 }
 
 void gfxPlotPixel(u8 x, u8 y){
-	if(x >= PIXELS_WIDTH || y >= PIXELS_WIDTH){
-		return;
-	}
 	gfxPlotPixelInternal(x,y);
 	UpdateScreenRegionsToUpdate_SinglePixel(x,y);
 }
@@ -137,7 +188,7 @@ void gfxDrawLineNaive(u8 x1, u8 y1, u8 x2, u8 y2){
 			Swapi8(y1,y2);
 		}
 		for(int y=y1; y<=y2; y++){
-			gfxPlotPixel(x1,y);
+			gfxPlotPixelInternal(x1,y);
 		}
 	}
 	else{
@@ -149,7 +200,7 @@ void gfxDrawLineNaive(u8 x1, u8 y1, u8 x2, u8 y2){
 			}
 			for(u8 x = x1; x <= x2; x++){
 				u8 y = (u8)round(m * (f32)x + c);
-				gfxPlotPixel(x,y);
+				gfxPlotPixelInternal(x,y);
 			}
 		}
 		else{
@@ -158,10 +209,12 @@ void gfxDrawLineNaive(u8 x1, u8 y1, u8 x2, u8 y2){
 			}
 			for(int y=y1; y<=y2; y++){
 				u8 x = (u8)round((y-c) / m);
-				gfxPlotPixel(x,y);
+				gfxPlotPixelInternal(x,y);
 			}
 		}
 	}
+	//UpdateScreenRegionsToUpdate_LineDrawn(x1,y1,x2,y2);
+
 }
 
 
@@ -231,7 +284,7 @@ void gfxDrawLine(u8 x0, u8 y0, u8 x1, u8 y1){
 		}
 
 	}
-	UpdateScreenRegionsToUpdate_LineDrawn(x0,y0,x1,y1);
+	//UpdateScreenRegionsToUpdate_LineDrawn(x0,y0,x1,y1);
 }
 
 void UpdateScreenRegionsToUpdate_LineDrawn(u8 x0, u8 y0, u8 x1, u8 y1){
@@ -351,7 +404,7 @@ void gfxWriteTextLineToFrameBuffer(u8 vIndex, u8 hIndex, const char* string){
 	int yOffset = vIndex * PIXELS_WIDTH;
 	u8 stringWidthBytes = strLen*LCD_PCD8544_CHAR_WIDTH;
 	memcpy(&gFrameBuffer[yOffset + hIndex], data, stringWidthBytes);
-	UpdateScreenRegionsToUpdate_TextDrawn(vIndex, hIndex, stringWidthBytes);
+	//UpdateScreenRegionsToUpdate_TextDrawn(vIndex, hIndex, stringWidthBytes);
 
 }
 
@@ -425,7 +478,14 @@ void gfxMidPointCircleDraw(int x_centre, int y_centre, int r)
 }
 
 
+void gfxDrawAxisAlignedRect(u8 tlX, u8 tlY, u8 brX, u8 brY){
+	gfxDrawLine(tlX,tlY, brX,tlY);
+	gfxDrawLine(brX,tlY, brX, brY);
+	gfxDrawLine(brX, brY, tlX, brY);
+	gfxDrawLine(tlX, brY, tlX,tlY);
 
+
+}
 
 
 

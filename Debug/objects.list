@@ -1,4 +1,8 @@
+"./Core/Src/AnalogStick.o"
 "./Core/Src/LcdGraphics.o"
+"./Core/Src/OS.o"
+"./Core/Src/TetrisCore.o"
+"./Core/Src/TetrisGame.o"
 "./Core/Src/lcd_pcd8544.o"
 "./Core/Src/lcd_pcd8544_ll.o"
 "./Core/Src/main.o"

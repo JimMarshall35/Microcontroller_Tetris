@@ -1,0 +1,4 @@
+../Core/Src/OS.c:15:6:OSThread_Start	32	static
+../Core/Src/OS.c:49:13:trigger_pendsv	16	static,ignoring_inline_asm
+../Core/Src/OS.c:58:13:OSPendSV_Handler	16	static,ignoring_inline_asm
+../Core/Src/OS.c:72:6:OSSched	8	static

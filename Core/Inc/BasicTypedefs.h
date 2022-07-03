@@ -12,7 +12,10 @@ typedef int32_t i32;
 
 typedef float f32;
 
+#define bool u8
 #define true 1
 #define false 0
+
+
 
 #endif /* BASIC_TYPEDEFS_H */

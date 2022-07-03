@@ -1,4 +1,6 @@
-Core/Src/stm32f3xx_it.o: ../Core/Src/stm32f3xx_it.c ../Core/Inc/main.h \
+Core/Src/TetrisCore.o: ../Core/Src/TetrisCore.c ../Core/Inc/TetrisCore.h \
+ ../Core/Inc/BasicTypedefs.h ../Core/Inc/LcdGraphics.h \
+ ../Core/Inc/lcd_pcd8544_ll.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
@@ -29,9 +31,11 @@ Core/Src/stm32f3xx_it.o: ../Core/Src/stm32f3xx_it.c ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
- ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
- ../Core/Inc/stm32f3xx_it.h ../Core/Inc/OS.h ../Core/Inc/BasicTypedefs.h
-../Core/Inc/main.h:
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h
+../Core/Inc/TetrisCore.h:
+../Core/Inc/BasicTypedefs.h:
+../Core/Inc/LcdGraphics.h:
+../Core/Inc/lcd_pcd8544_ll.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:
@@ -63,6 +67,3 @@ Core/Src/stm32f3xx_it.o: ../Core/Src/stm32f3xx_it.c ../Core/Inc/main.h \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
-../Core/Inc/stm32f3xx_it.h:
-../Core/Inc/OS.h:
-../Core/Inc/BasicTypedefs.h:
