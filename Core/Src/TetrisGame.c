@@ -5,6 +5,7 @@
  *      Author: James.Marshall
  *
  * A main loop that calls the functions in TetrisCore.h
+ * - an implementation of tetris using TetrisCore
  */
 #include <stdlib.h>
 #include <stdio.h>
@@ -152,10 +153,7 @@ void TetrisGame_Init(){
 			&GetRandomNumberBetweenZeroAndSix,
 			&OnLinesCleared,
 			&OnGameOver);
-	u8 flashData[4] = {0xde,0xad,0xbe,0xef};
-	for(int i=0; i< 4; i++){
-		Write_Flash(flashData[i], i);
-	}
+
 }
 
 
