@@ -1,5 +1,7 @@
 # Microcontroller_Tetris
 
+A project for stm32 cube ide.
+
 Tetris for a 32 bit arm microcontroller - I've used a NUCLEO-F303K8
 but with some tweaking it would probably work on many different stm microcontrollers.
 
@@ -14,4 +16,4 @@ https://github.com/evovch/STM32-LCD_PCD8544
 
 I'd like to add the ability to save high scores and get it to work with a battery.
 
-The software isn't fully complete yet either there's a few things i still need to do - firstly seed the random number generator somehow.
+Still a work in progress - lots to still add but it is now a working game of tetris :)
