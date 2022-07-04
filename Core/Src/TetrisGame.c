@@ -72,11 +72,13 @@ void OnLinesCleared(u8 numLinesCleared){
 		_score += TETRIS_SCORE_TETRIS;
 		break;
 	}
+	_newScoreToDisplay = true;
 }
 
 void OnGameOver(){
 	_linesCleared = 0;
 	_score = 0;
+	_newScoreToDisplay = true;
 }
 
 void IncrementTetrisTimer(u32 timePassed, bool moveDown){
@@ -91,7 +93,7 @@ void IncrementTetrisTimer(u32 timePassed, bool moveDown){
 
 void WriteScoreToFrameBuffer(){
 	u8 scoreNumBuffer[7];
-	sprintf(scoreNumBuffer, "%u",_score);
+	sprintf(scoreNumBuffer, "%lu",_score);
 	gfxWriteTextLineToFrameBuffer(1,TETRIS_BOARD_RIGHT_EDGE_COL + 1,scoreNumBuffer);
 
 }
@@ -135,9 +137,12 @@ void TetrisGame(u32 timePassed){
 
 
 	if(_movingDownResult == Settled || _movingDownResult == GameOver){
+		/* update the area where the next block is shown */
 		UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(0,0,0,53);
 	}
-	if(_newScoreToDisplay = true){
+	if(_newScoreToDisplay == true){
+		/* Update the new area of the screen with the new score.
+		 * TODO: get actual length of score string instead of using 84 */
 		UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(1,1,0,84);
 		_newScoreToDisplay = false;
 	}

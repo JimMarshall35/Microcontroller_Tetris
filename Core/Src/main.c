@@ -385,11 +385,17 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : BUTTON_B_Pin ANALOGUE_STICK_BUTTON_Pin */
-  GPIO_InitStruct.Pin = BUTTON_B_Pin|ANALOGUE_STICK_BUTTON_Pin;
+  /*Configure GPIO pin : BUTTON_B_Pin */
+  GPIO_InitStruct.Pin = BUTTON_B_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+  HAL_GPIO_Init(BUTTON_B_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : ANALOGUE_STICK_BUTTON_Pin */
+  GPIO_InitStruct.Pin = ANALOGUE_STICK_BUTTON_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(ANALOGUE_STICK_BUTTON_GPIO_Port, &GPIO_InitStruct);
 
 }
 
