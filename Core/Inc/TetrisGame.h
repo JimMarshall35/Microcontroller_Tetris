@@ -8,9 +8,10 @@
 #ifndef INC_TETRISGAME_H_
 #define INC_TETRISGAME_H_
 #include "BasicTypedefs.h"
+#include "TetrisHighLevelModesStateMachine.h"
 
-
-void TetrisGame(u32 TimePassed);
+Tetris_Modes_StateTriggers TetrisGame_Update(u32 TimePassed);
 void TetrisGame_Init();
+void TetrisGame_OnEnter(void* stateMachineDataPtr);
 
 #endif /* INC_TETRISGAME_H_ */

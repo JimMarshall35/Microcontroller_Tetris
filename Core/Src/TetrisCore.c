@@ -17,15 +17,6 @@
 #define NUM_TETRIS_PIECES 7
 #include "LcdGraphics.h"
 
-u16 _gameBoardArray[TETRIS_BOARD_ROWS];
-
-TetrisDrawRect _drawRect;
-TetrisDrawActiveBlock _drawActiveBlock;
-TetrisDrawStationaryBlock _drawStationaryBlock;
-TetrisGetNextBlockIndex _getNextBlockIndex;
-TetrisLinesClearedCallback _onLinesCleared;
-TetrisGameOverCallback _onGameOver;
-
 typedef struct{
 	//u8** Rotations;
 	u8* OccupiedIndiciesForRotations;
@@ -34,17 +25,32 @@ typedef struct{
 	i8 TopLeftY;
 }TetrisPiece;
 
-TetrisPiece _currentPiece;
-TetrisPiece _nextPiece;
-u8 _GameBoardXOffset = 5;
-u8 _GameBoardYOffset = 0;
+typedef enum {
+	EMPTY,
+	FULL
+}BOARD_CELL_STATE;
+
+static u16 _gameBoardArray[TETRIS_BOARD_ROWS];
+static TetrisDrawRect _drawRect;
+static TetrisDrawActiveBlock _drawActiveBlock;
+static TetrisDrawStationaryBlock _drawStationaryBlock;
+static TetrisGetNextBlockIndex _getNextBlockIndex;
+static TetrisLinesClearedCallback _onLinesCleared;
+static TetrisGameOverCallback _onGameOver;
+
+
+
+static TetrisPiece _currentPiece;
+static TetrisPiece _nextPiece;
+static u8 _GameBoardXOffset = 5;
+static u8 _GameBoardYOffset = 0;
 
 /*
  * On a 4 * 4 matrix with the tetris block drawn in it according to the diagram
  * on this page https://tetris.fandom.com/wiki/SRS, which four indicies have a block
  * for each of the four rotations with zero being the top left corner
  * */
-const u8 _IPieceOccupiedIndices[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _IPieceOccupiedIndices[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{4,5,6,7},
 		{2,6,10,14},
 		{8,9,10,11},
@@ -52,14 +58,14 @@ const u8 _IPieceOccupiedIndices[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 
 };
 
-const u8 _JPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _JPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{0,4,5,6},
 		{1,2,5,9},
 		{4,5,6,10},
 		{1,5,8,9}
 };
 
-const u8 _TPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _TPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{5,1,4,6},
 		{5,1,9,6},
 		{5,4,9,6},
@@ -67,21 +73,21 @@ const u8 _TPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 
 };
 
-const u8 _LPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _LPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{2,4,5,6},
 		{1,5,9,10},
 		{4,5,6,8},
 		{0,1,5,9}
 };
 
-const u8 _OPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _OPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{1,2,5,6},
 		{1,2,5,6},
 		{1,2,5,6},
 		{1,2,5,6},
 };
 
-const u8 _SPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _SPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{1,2,4,5},
 		{1,5,6,10},
 		{5,6,8,9},
@@ -89,7 +95,7 @@ const u8 _SPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 };
 
 
-const u8 _ZPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
+static const u8 _ZPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 		{0,1,5,6},
 		{2,5,6,9},
 		{4,5,9,10},
@@ -98,20 +104,16 @@ const u8 _ZPieceOccupiedIndicies[MAGIC_TETRIS_NUMBER][MAGIC_TETRIS_NUMBER] = {
 };
 
 
-u8* _TetrisPieces[NUM_TETRIS_PIECES]  = {_ZPieceOccupiedIndicies, _SPieceOccupiedIndicies,_OPieceOccupiedIndicies,_LPieceOccupiedIndicies,_TPieceOccupiedIndicies,_JPieceOccupiedIndicies,_IPieceOccupiedIndices, };
+static u8* _TetrisPieces[NUM_TETRIS_PIECES]  = {_ZPieceOccupiedIndicies, _SPieceOccupiedIndicies,_OPieceOccupiedIndicies,_LPieceOccupiedIndicies,_TPieceOccupiedIndicies,_JPieceOccupiedIndicies,_IPieceOccupiedIndices, };
 
 
 
-typedef enum {
-	EMPTY,
-	FULL
-}BOARD_CELL_STATE;
 
-BOARD_CELL_STATE GetStateAtXY(u8 x, u8 y){
+static BOARD_CELL_STATE GetStateAtXY(u8 x, u8 y){
 	return (_gameBoardArray[y] & (1 << x)) == 0 ? EMPTY : FULL;
 }
 
-void SetStateAtXY(u8 x, u8 y, BOARD_CELL_STATE newCellState){
+static void SetStateAtXY(u8 x, u8 y, BOARD_CELL_STATE newCellState){
 	if(newCellState == FULL){
 		_gameBoardArray[y] |= (1 << x);
 	}
@@ -123,7 +125,7 @@ void SetStateAtXY(u8 x, u8 y, BOARD_CELL_STATE newCellState){
 
 
 
-void Tetris_DrawCurentPiece(){
+static void Tetris_DrawCurentPiece(){
 	u8* thisRotationIndicies = _currentPiece.OccupiedIndiciesForRotations + (_currentPiece.CurrentRotation * MAGIC_TETRIS_NUMBER);
 	for(int i=0;i<MAGIC_TETRIS_NUMBER; i++){
 		u8 thisOffsetIndex = thisRotationIndicies[i];
@@ -144,7 +146,7 @@ void Tetris_DrawCurentPiece(){
 	}
 }
 
-void Tetris_DrawNextPiece(){
+static void Tetris_DrawNextPiece(){
 	u8* thisRotationIndicies = _nextPiece.OccupiedIndiciesForRotations + (_nextPiece.CurrentRotation * MAGIC_TETRIS_NUMBER);
 	for(int i=0;i<MAGIC_TETRIS_NUMBER; i++){
 		u8 thisOffsetIndex = thisRotationIndicies[i];
@@ -188,25 +190,25 @@ void Tetris_DrawTetrisBoard(bool drawNextPiece){
 	}
 }
 
-void InitNewCurrentPiece(){
+static void InitNewCurrentPiece(){
 	_currentPiece.TopLeftX = 2;
 	_currentPiece.TopLeftY = -2;
 	_currentPiece.OccupiedIndiciesForRotations = _TetrisPieces[_getNextBlockIndex()];
 	_currentPiece.CurrentRotation = 0;
 }
 
-void InitNewNextPiece(){
+static void InitNewNextPiece(){
 	_nextPiece.TopLeftX = 2;
 	_nextPiece.TopLeftY = -2;
 	_nextPiece.OccupiedIndiciesForRotations = _TetrisPieces[_getNextBlockIndex()];
 	_nextPiece.CurrentRotation = 0;
 }
 
-void CopyNextPieceToCurrent(){
+static void CopyNextPieceToCurrent(){
 	memcpy(&_currentPiece, &_nextPiece, sizeof(TetrisPiece));
 }
 
-void ResetBoard(){
+void Tetris_ResetTetrisBoard(){
 	memset(_gameBoardArray,EMPTY,sizeof(_gameBoardArray));
 	InitNewCurrentPiece();
 	InitNewNextPiece();
@@ -224,10 +226,10 @@ void Tetris_Init(
 	_getNextBlockIndex = getNextBlockIndex;
 	_onLinesCleared = onLinesCleared;
 	_onGameOver = onGameOver;
-	ResetBoard();
+	//Tetris_ResetTetrisBoard();
 }
 
-bool IsBlockAllowedToBeHere(i8 x, i8 y){
+static bool IsBlockAllowedToBeHere(i8 x, i8 y){
 	if((y < 0) && (x>=0 && x < TETRIS_BOARD_COLUMNS)){
 		return true;
 	}
@@ -243,7 +245,7 @@ bool IsBlockAllowedToBeHere(i8 x, i8 y){
 	return true;
 }
 
-bool WriteCurrentPieceToGameBoardArray(){
+static bool WriteCurrentPieceToGameBoardArray(){
 	u8* thisRotationIndicies = _currentPiece.OccupiedIndiciesForRotations + (_currentPiece.CurrentRotation * MAGIC_TETRIS_NUMBER);
 	for(int i=0; i< MAGIC_TETRIS_NUMBER; i++){
 		u8 thisOffsetIndex = thisRotationIndicies[i];
@@ -261,7 +263,7 @@ bool WriteCurrentPieceToGameBoardArray(){
 	return false;
 }
 
-u8 IsMoveValid(){
+static u8 IsMoveValid(){
 	u8* thisRotationIndicies = _currentPiece.OccupiedIndiciesForRotations + (_currentPiece.CurrentRotation * MAGIC_TETRIS_NUMBER);
 	for(int i=0; i< MAGIC_TETRIS_NUMBER; i++){
 		u8 thisOffsetIndex = thisRotationIndicies[i];
@@ -276,7 +278,7 @@ u8 IsMoveValid(){
 	return 1;
 }
 
-u8 CheckForAndClearLines(){
+static u8 CheckForAndClearLines(){
 	u8 linesToClear = 0;
 	bool lastLineWasCleared = false;
 	for(int i=TETRIS_BOARD_ROWS-1; i>=0; i--){
@@ -322,8 +324,8 @@ MoveDownResult Tetris_MoveDown(){
 		InitNewNextPiece();
 		if(hasGameOverOccured == true){
 			_onGameOver();
-			ResetBoard();
-			return GameOver;
+			Tetris_ResetTetrisBoard();
+			return MoveDownResultGameOver;
 		}
 		if(linesCleared > 0){
 			_onLinesCleared(linesCleared);

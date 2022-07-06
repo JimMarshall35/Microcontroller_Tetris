@@ -32,7 +32,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  ../Core/Inc/lcd_pcd8544.h ../Core/Inc/lcd_pcd8544_ll.h \
  ../Core/Inc/LcdGraphics.h ../Core/Inc/BasicTypedefs.h \
- ../Core/Inc/BasicTypedefs.h ../Core/Inc/TetrisGame.h
+ ../Core/Inc/BasicTypedefs.h ../Core/Inc/TetrisMain.h
 ../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
@@ -70,4 +70,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Core/Inc/LcdGraphics.h:
 ../Core/Inc/BasicTypedefs.h:
 ../Core/Inc/BasicTypedefs.h:
-../Core/Inc/TetrisGame.h:
+../Core/Inc/TetrisMain.h:

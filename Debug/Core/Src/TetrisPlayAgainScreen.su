@@ -1,0 +1,3 @@
+../Core/Src/TetrisPlayAgainScreen.c:15:28:TetrisPlayAgain_Update	24	static
+../Core/Src/TetrisPlayAgainScreen.c:25:6:TetrisPlayAgain_Init	4	static
+../Core/Src/TetrisPlayAgainScreen.c:29:6:TetrisPlayAgain_OnEnter	16	static

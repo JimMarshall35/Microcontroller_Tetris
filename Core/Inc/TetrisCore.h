@@ -20,7 +20,7 @@ typedef enum{
 	None,
 	StillMoving,
 	Settled,
-	GameOver
+	MoveDownResultGameOver
 }MoveDownResult;
 /*
  * Draw one of the blocks that has settled down
@@ -61,6 +61,7 @@ typedef void(*TetrisGameOverCallback)(void);
  * */
 void Tetris_DrawTetrisBoard(bool drawNextPiece);
 
+void Tetris_ResetTetrisBoard();
 /*
  * initiate the tetris core code module passing in
  * dependencies in the form of function pointers

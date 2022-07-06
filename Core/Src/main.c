@@ -24,7 +24,7 @@
 #include "lcd_pcd8544.h"
 #include "LcdGraphics.h"
 #include "BasicTypedefs.h"
-#include "TetrisGame.h"
+#include "TetrisMain.h"
 
 
 /* USER CODE END Includes */
@@ -132,16 +132,16 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
    srand(time(NULL));   // Initialization, should only be called once.
-   TetrisGame_Init();
+   TetrisMain_Init();
 
 
 
   while (1)
   {
-	  TetrisGame(125);
+	  TetrisMain_Update(50);
 
 
-	  HAL_Delay(125);
+	  HAL_Delay(50);
 
     /* USER CODE END WHILE */
 

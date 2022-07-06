@@ -1,7 +1,6 @@
-Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
- ../Core/Inc/BasicTypedefs.h \
- ../Core/Inc/TetrisHighLevelModesStateMachine.h ../Core/Inc/TetrisCore.h \
- ../Core/Inc/AnalogStick.h \
+Core/Src/TetrisPlayAgainScreen.o: ../Core/Src/TetrisPlayAgainScreen.c \
+ ../Core/Inc/TetrisHighLevelModesStateMachine.h \
+ ../Core/Inc/BasicTypedefs.h ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
@@ -33,13 +32,10 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
- ../Core/Inc/BasicTypedefs.h ../Core/Inc/LcdGraphics.h \
- ../Core/Inc/lcd_pcd8544_ll.h ../Core/Inc/main.h
-../Core/Inc/TetrisGame.h:
-../Core/Inc/BasicTypedefs.h:
+ ../Core/Inc/LcdGraphics.h ../Core/Inc/lcd_pcd8544_ll.h
 ../Core/Inc/TetrisHighLevelModesStateMachine.h:
-../Core/Inc/TetrisCore.h:
-../Core/Inc/AnalogStick.h:
+../Core/Inc/BasicTypedefs.h:
+../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:
@@ -71,7 +67,5 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
-../Core/Inc/BasicTypedefs.h:
 ../Core/Inc/LcdGraphics.h:
 ../Core/Inc/lcd_pcd8544_ll.h:
-../Core/Inc/main.h:
