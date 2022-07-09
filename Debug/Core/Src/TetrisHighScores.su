@@ -1,0 +1,8 @@
+../Core/Src/TetrisHighScores.c:22:13:SetHighScoreCellSize	16	static
+../Core/Src/TetrisHighScores.c:30:13:LoadHighScores	24	static
+../Core/Src/TetrisHighScores.c:42:13:SaveSingleHighScore	32	static
+../Core/Src/TetrisHighScores.c:49:13:SaveHighScores	24	static
+../Core/Src/TetrisHighScores.c:58:5:TetrisHighScores_Load	16	static
+../Core/Src/TetrisHighScores.c:77:6:TetrisHighScores_IsNewHighScore	24	static
+../Core/Src/TetrisHighScores.c:86:12:TetrisHighScores_GetHighScoreAtIndex	16	static
+../Core/Src/TetrisHighScores.c:91:5:TetrisHighScores_Save	16	static

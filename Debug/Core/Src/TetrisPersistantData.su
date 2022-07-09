@@ -1,0 +1,2 @@
+../Core/Src/TetrisPersistantData.c:15:6:TetrisPersistantData_LoadAllPeristantData	16	static
+../Core/Src/TetrisPersistantData.c:20:6:TetrisPersistantData_SaveAllPersistantData	32	static

@@ -1,0 +1,4 @@
+../Core/Src/TetrisLevelSelectScreen.c:12:28:TetrisLevelSelect_Update	16	static
+../Core/Src/TetrisLevelSelectScreen.c:16:6:TetrisLevelSelect_Init	4	static
+../Core/Src/TetrisLevelSelectScreen.c:20:6:TetrisLevelSelect_OnEnter	16	static
+../Core/Src/TetrisLevelSelectScreen.c:24:6:TetrisLevelSelect_OnExit	16	static

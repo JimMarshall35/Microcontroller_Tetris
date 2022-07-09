@@ -1,8 +1,7 @@
-Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
- ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h \
- ../Core/Inc/BasicTypedefs.h ../Core/Inc/TetrisCore.h \
- ../Core/Inc/TetrisHighScores.h ../Core/Inc/TetrisHighScoresDefs.h \
- ../Core/Inc/AnalogStick.h \
+Core/Src/TetrisPersistantData.o: ../Core/Src/TetrisPersistantData.c \
+ ../Core/Inc/TetrisPersistantData.h ../Core/Inc/TetrisHighScores.h \
+ ../Core/Inc/TetrisHighScoresDefs.h ../Core/Inc/BasicTypedefs.h \
+ ../Core/Inc/TetrisAccumulatedPlaytime.h ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
@@ -34,17 +33,13 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
- ../Core/Inc/BasicTypedefs.h ../Core/Inc/LcdGraphics.h \
- ../Core/Inc/lcd_pcd8544_ll.h ../Core/Inc/main.h \
- ../Core/Inc/TetrisPersistantData.h \
- ../Core/Inc/TetrisAccumulatedPlaytime.h
-../Core/Inc/TetrisGame.h:
-../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
-../Core/Inc/BasicTypedefs.h:
-../Core/Inc/TetrisCore.h:
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_flash_ex.h
+../Core/Inc/TetrisPersistantData.h:
 ../Core/Inc/TetrisHighScores.h:
 ../Core/Inc/TetrisHighScoresDefs.h:
-../Core/Inc/AnalogStick.h:
+../Core/Inc/BasicTypedefs.h:
+../Core/Inc/TetrisAccumulatedPlaytime.h:
+../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:
@@ -76,9 +71,4 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
-../Core/Inc/BasicTypedefs.h:
-../Core/Inc/LcdGraphics.h:
-../Core/Inc/lcd_pcd8544_ll.h:
-../Core/Inc/main.h:
-../Core/Inc/TetrisPersistantData.h:
-../Core/Inc/TetrisAccumulatedPlaytime.h:
+../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_flash_ex.h:

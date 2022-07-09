@@ -12,10 +12,13 @@
 
 #include "TetrisGame.h"
 #include "TetrisCore.h"
+#include "TetrisHighScores.h"
 #include "AnalogStick.h"
 #include "BasicTypedefs.h"
 #include "LcdGraphics.h"
 #include "main.h"
+#include "TetrisPersistantData.h"
+#include "TetrisAccumulatedPlaytime.h"
 
 //#include "stm32f3xx_hal_flash.h"
 //__attribute__((__section__(".user_data"))) const char userConfig[64];
@@ -160,13 +163,13 @@ static void UpdateTetrisGame(u32 timePassed){
 	GPIO_PinState buttonBState = HAL_GPIO_ReadPin(BUTTON_B_GPIO_Port, BUTTON_B_Pin);
 
 	const i32 twelveBitMax = 4096;
-	if(analogXChange > (twelveBitMax/3)){
+	if(analogXChange > (twelveBitMax/5)){
 		Tetris_MoveRight();
 	}
-	else if(analogXChange < -(twelveBitMax/3)){
+	else if(analogXChange < -(twelveBitMax/5)){
 		Tetris_MoveLeft();
 	}
-	else if(analogYChange > (twelveBitMax/3)){
+	else if(analogYChange > (twelveBitMax/5)){
 		_movingDownResult = Tetris_MoveDown();
 		movingDown = false;
 	}
@@ -246,16 +249,24 @@ static void InitCurrentLevelTetrisScores(){
 }
 
 
-Tetris_Modes_StateTriggers TetrisGame_Update(u32 timePassed){
+Tetris_Modes_StateTriggers CheckForHighScore(){
+	if(TetrisHighScores_IsNewHighScore(_score) == true){
+		return GameOverNewHighScore;
+	}
+	else{
+		return GameOver;
+	}
+}
 
+
+Tetris_Modes_StateTriggers TetrisGame_Update(u32 timePassed){
+	TetrisAccumulatedPlaytime_IncrementAccumulatedPlaytime(timePassed);
 	UpdateTetrisGame(timePassed);
 	DrawTetrisGame();
 	if(_movingDownResult == MoveDownResultGameOver){
-		TetrisMain_SetStateMachineDataPointer(&_startLevel);
-		return GameOver;
+		return CheckForHighScore();
 	}
 	return NoChange;
-
 }
 
 
@@ -268,22 +279,29 @@ void TetrisGame_Init(){
 			&GetRandomNumberBetweenZeroAndSix,
 			&OnLinesCleared,
 			&OnGameOver);
+	//TetrisHighScores_Init();
+	srand(TetrisAccumulatedPlaytime_GetAccumulatedPlaytime());
+
 }
 
-void TetrisGame_OnEnter(void* stateMachineDataPtr){
-	_startLevel = *((u8*)stateMachineDataPtr);
+void TetrisGame_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousState){
+	if(previousState == LevelSelect || previousState == NoState){
+		_startLevel = *((u8*)stateMachineDataPtr);
+	}
 	SetLevel(_startLevel);
 	Tetris_ResetTetrisBoard();
 	InitCurrentLevelTetrisScores();
 	_movingDownResult = Settled;
-	static bool _newScoreToDisplay = true;
-	static bool _newLevelToDisplay = true;
+	_score = 0;
+	_newScoreToDisplay = true;
+	_newLevelToDisplay = true;
 }
 
 
 
-void TetrisGame_OnExit(void* stateMachineDataPtr){
+void TetrisGame_OnExit(void* stateMachineDataPtr, Tetris_Modes_States nextState){
 	ClearScreen(&gLcdScreen);
+	TetrisPersistantData_SaveAllPersistantData();
 }
 
 

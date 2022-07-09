@@ -17,10 +17,10 @@ void TetrisLevelSelect_Init(){
 
 }
 
-void TetrisLevelSelect_OnEnter(void* stateMachineDataPtr){
+void TetrisLevelSelect_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousState){
 
 }
 
-void TetrisLevelSelect_OnExit(void* stateMachineDataPtr){
+void TetrisLevelSelect_OnExit(void* stateMachineDataPtr, Tetris_Modes_States nextState){
 
 }

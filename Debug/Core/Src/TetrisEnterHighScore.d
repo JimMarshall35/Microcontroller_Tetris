@@ -1,7 +1,8 @@
-Core/Inc/TetrisLevelSelectScreen.o: ../Core/Inc/TetrisLevelSelectScreen.c \
- ../Core/Inc/TetrisLevelSelectScreen.h ../Core/Inc/BasicTypedefs.h \
- ../Core/Inc/TetrisHighLevelModesStateMachine.h ../Core/Inc/LcdGraphics.h \
- ../Core/Inc/lcd_pcd8544_ll.h \
+Core/Src/TetrisEnterHighScore.o: ../Core/Src/TetrisEnterHighScore.c \
+ ../Core/Inc/TetrisEnterHighScore.h \
+ ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h \
+ ../Core/Inc/BasicTypedefs.h ../Core/Inc/TetrisHighScores.h \
+ ../Core/Inc/TetrisHighScoresDefs.h ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
@@ -32,12 +33,14 @@ Core/Inc/TetrisLevelSelectScreen.o: ../Core/Inc/TetrisLevelSelectScreen.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
- ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h
-../Core/Inc/TetrisLevelSelectScreen.h:
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
+ ../Core/Inc/LcdGraphics.h ../Core/Inc/lcd_pcd8544_ll.h
+../Core/Inc/TetrisEnterHighScore.h:
+../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
 ../Core/Inc/BasicTypedefs.h:
-../Core/Inc/TetrisHighLevelModesStateMachine.h:
-../Core/Inc/LcdGraphics.h:
-../Core/Inc/lcd_pcd8544_ll.h:
+../Core/Inc/TetrisHighScores.h:
+../Core/Inc/TetrisHighScoresDefs.h:
+../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h:
@@ -69,3 +72,5 @@ Core/Inc/TetrisLevelSelectScreen.o: ../Core/Inc/TetrisLevelSelectScreen.c \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
+../Core/Inc/LcdGraphics.h:
+../Core/Inc/lcd_pcd8544_ll.h:

@@ -1,5 +1,5 @@
 Core/Src/TetrisPlayAgainScreen.o: ../Core/Src/TetrisPlayAgainScreen.c \
- ../Core/Inc/TetrisHighLevelModesStateMachine.h \
+ ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h \
  ../Core/Inc/BasicTypedefs.h ../Core/Inc/main.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
@@ -33,7 +33,7 @@ Core/Src/TetrisPlayAgainScreen.o: ../Core/Src/TetrisPlayAgainScreen.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  ../Core/Inc/LcdGraphics.h ../Core/Inc/lcd_pcd8544_ll.h
-../Core/Inc/TetrisHighLevelModesStateMachine.h:
+../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
 ../Core/Inc/BasicTypedefs.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:

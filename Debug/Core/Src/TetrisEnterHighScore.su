@@ -1,0 +1,4 @@
+../Core/Src/TetrisEnterHighScore.c:18:6:DrawHighScoresToFrameBuffer	48	static
+../Core/Src/TetrisEnterHighScore.c:32:28:TetrisEnterHighScore_Update	24	static
+../Core/Src/TetrisEnterHighScore.c:44:6:TetrisEnterHighScore_OnEnter	16	static
+../Core/Src/TetrisEnterHighScore.c:62:6:TetrisEnterHighScore_OnExit	16	static

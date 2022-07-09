@@ -1,12 +1,12 @@
 /*
- * TetrisHighLevelModesStateMachine.h
+ * TetrisHighLevelModesStateMachineDefs.h
  *
  *  Created on: Jul 5, 2022
  *      Author: James.Marshall
  */
 
-#ifndef INC_TETRISHIGHLEVELMODESSTATEMACHINE_H_
-#define INC_TETRISHIGHLEVELMODESSTATEMACHINE_H_
+#ifndef INC_TETRISHIGHLEVELMODESSTATEMACHINEDEFS_H_
+#define INC_TETRISHIGHLEVELMODESSTATEMACHINEDEFS_H_
 #include "BasicTypedefs.h"
 
 
@@ -14,7 +14,10 @@ typedef enum{
 	NoChange,
 	StartPlaying,
 	GameOver,
+	GameOverNewHighScore,
 	GoToLevelSelectScreen,
+	HighScoreEntered,
+
 	NumTriggers
 }Tetris_Modes_StateTriggers;
 
@@ -22,12 +25,15 @@ typedef enum{
 	LevelSelect,
 	Playing,
 	PlayAgainDialogue,
-	NumStates
+	EnterNewHighScoreScreen,
+	NoState,
+
+	NumStates,
 }Tetris_Modes_States;
 
 typedef Tetris_Modes_StateTriggers (*UpdateStateFunction)(u32 timePassed);
-typedef void (*EnterStateFunction)(void* data);
-typedef void (*ExitStateFunction)(void* data);
+typedef void (*EnterStateFunction)(void* data, Tetris_Modes_States previousState);
+typedef void (*ExitStateFunction)(void* data, Tetris_Modes_States nextState);
 
 typedef struct{
 	Tetris_Modes_States destination;
@@ -43,4 +49,4 @@ typedef struct{
 }State;
 
 
-#endif /* INC_TETRISHIGHLEVELMODESSTATEMACHINE_H_ */
+#endif /* INC_TETRISHIGHLEVELMODESSTATEMACHINEDEFS_H_ */

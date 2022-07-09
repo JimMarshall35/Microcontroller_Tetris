@@ -4,7 +4,7 @@
  *  Created on: Jul 6, 2022
  *      Author: James.Marshall
  */
-#include "TetrisHighLevelModesStateMachine.h"
+#include <TetrisHighLevelModesStateMachineDefs.h>
 #include "main.h"
 #include "LcdGraphics.h"
 extern  ADC_HandleTypeDef hadc2;
@@ -28,7 +28,7 @@ void TetrisPlayAgain_Init(){
 
 }
 
-void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr){
+void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousState){
 	_startLevel = *((u8*)stateMachineDataPtr);
 	gfxClearFrameBuffer();
 	ClearUpdateRegions();
@@ -38,6 +38,6 @@ void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr){
 
 }
 
-void TetrisPlayAgain_OnExit(void* stateMachineDataPtr){
+void TetrisPlayAgain_OnExit(void* stateMachineDataPtr, Tetris_Modes_States nextState){
 	ClearScreen(&gLcdScreen);
 }
