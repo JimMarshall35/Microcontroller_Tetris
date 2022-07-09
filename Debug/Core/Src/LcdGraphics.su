@@ -17,3 +17,5 @@
 ../Core/Src/LcdGraphics.c:412:6:UpdateScreenRegionsToUpdate_TextDrawn	24	static
 ../Core/Src/LcdGraphics.c:422:6:gfxMidPointCircleDraw	40	static
 ../Core/Src/LcdGraphics.c:481:6:gfxDrawAxisAlignedRect	24	static
+../Core/Src/LcdGraphics.c:490:6:ClearUpdateRegions	16	static
+../Core/Src/LcdGraphics.c:501:6:ClearScreen	24	static

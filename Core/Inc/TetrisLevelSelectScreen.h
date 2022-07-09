@@ -14,6 +14,7 @@
 Tetris_Modes_StateTriggers TetrisLevelSelect_Update(u32 TimePassed);
 void TetrisLevelSelect_Init();
 void TetrisLevelSelect_OnEnter(void* stateMachineDataPtr);
+void TetrisLevelSelect_OnExit(void* stateMachineDataPtr);
 
 
 #endif /* INC_TETRISLEVELSELECTSCREEN_H_ */

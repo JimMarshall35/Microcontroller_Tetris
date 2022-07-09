@@ -75,7 +75,7 @@ void UpdateScreenRegionsToUpdate_ClearedFrameBuffer(){
 
 void gfxClearFrameBuffer(){
 	memset(gFrameBuffer, 0, sizeof(gFrameBuffer));
-	UpdateScreenRegionsToUpdate_ClearedFrameBuffer();
+	//UpdateScreenRegionsToUpdate_ClearedFrameBuffer();
 }
 
 void gfxClearFrameBufferRect(u8 pixelsTopLeftX, u8 pixelsTopLeftY, u8 pixelsBottomRightX, u8 pixelsBottomRightY){
@@ -487,10 +487,27 @@ void gfxDrawAxisAlignedRect(u8 tlX, u8 tlY, u8 brX, u8 brY){
 
 }
 
+void ClearUpdateRegions(){
+	for(int i=0; i < SCREEN_NUM_ROWS; i++){
+		gScreenRegionsToUpdate[i].updateColumnFinish = 0;
+		gScreenRegionsToUpdate[i].updateColumnStart = 0;
+		gScreenRegionsToUpdate[i].updateNeeded = 0;
 
 
+	}
+}
 
 
+void ClearScreen(LCD_PCD8544_screen_t* scr){
+	gfxClearFrameBuffer();
+	for(int i=0; i < SCREEN_NUM_ROWS; i++){
+		gScreenRegionsToUpdate[i].updateColumnFinish = 83;
+		gScreenRegionsToUpdate[i].updateColumnStart = 0;
+		gScreenRegionsToUpdate[i].updateNeeded = 1;
+	}
+	gfxFinishDrawing(scr);
+
+}
 
 
 

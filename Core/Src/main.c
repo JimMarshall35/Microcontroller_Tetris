@@ -139,8 +139,6 @@ int main(void)
   while (1)
   {
 	  TetrisMain_Update(50);
-
-
 	  HAL_Delay(50);
 
     /* USER CODE END WHILE */

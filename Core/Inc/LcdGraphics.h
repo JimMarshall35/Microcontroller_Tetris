@@ -39,4 +39,7 @@ void gfxFinishDrawing(LCD_PCD8544_screen_t* scr);
 void gfxWriteTextLineToFrameBuffer(u8 vIndex, u8 hIndex, const char* string);
 void gfxMidPointCircleDraw(int x_centre, int y_centre, int r);
 void UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(u8 rowStart, u8 rowStop, u8 colStart, u8 colStop);
+void ClearUpdateRegions();
+void ClearScreen(LCD_PCD8544_screen_t* scr);
+
 #endif /* INC_LCDGRAPHICS_H_ */

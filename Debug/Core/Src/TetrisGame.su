@@ -9,6 +9,7 @@
 ../Core/Src/TetrisGame.c:153:13:UpdateTetrisGame	32	static
 ../Core/Src/TetrisGame.c:183:13:DrawTetrisGame	8	static
 ../Core/Src/TetrisGame.c:209:13:InitCurrentLevelTetrisScores	4	static
-../Core/Src/TetrisGame.c:247:28:TetrisGame_Update	16	static
-../Core/Src/TetrisGame.c:261:6:TetrisGame_Init	16	static
-../Core/Src/TetrisGame.c:271:6:TetrisGame_OnEnter	16	static
+../Core/Src/TetrisGame.c:249:28:TetrisGame_Update	16	static
+../Core/Src/TetrisGame.c:263:6:TetrisGame_Init	16	static
+../Core/Src/TetrisGame.c:273:6:TetrisGame_OnEnter	16	static
+../Core/Src/TetrisGame.c:285:6:TetrisGame_OnExit	16	static

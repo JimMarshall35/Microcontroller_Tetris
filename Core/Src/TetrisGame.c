@@ -226,7 +226,7 @@ static void InitCurrentLevelTetrisScores(){
 		_currentLevelTetrisScores[0] = 120;
 		_currentLevelTetrisScores[1] = 300;
 		_currentLevelTetrisScores[2] = 900;
-		_currentLevelTetrisScores[3] = 360;
+		_currentLevelTetrisScores[3] = 3600;
 
 	}
 	else if(_currentLevel == 9){
@@ -274,11 +274,17 @@ void TetrisGame_OnEnter(void* stateMachineDataPtr){
 	_startLevel = *((u8*)stateMachineDataPtr);
 	SetLevel(_startLevel);
 	Tetris_ResetTetrisBoard();
+	InitCurrentLevelTetrisScores();
+	_movingDownResult = Settled;
+	static bool _newScoreToDisplay = true;
+	static bool _newLevelToDisplay = true;
 }
 
 
 
-
+void TetrisGame_OnExit(void* stateMachineDataPtr){
+	ClearScreen(&gLcdScreen);
+}
 
 
 

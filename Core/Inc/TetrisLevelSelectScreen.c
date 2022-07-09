@@ -20,3 +20,7 @@ void TetrisLevelSelect_Init(){
 void TetrisLevelSelect_OnEnter(void* stateMachineDataPtr){
 
 }
+
+void TetrisLevelSelect_OnExit(void* stateMachineDataPtr){
+
+}

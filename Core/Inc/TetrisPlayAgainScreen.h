@@ -11,6 +11,6 @@
 Tetris_Modes_StateTriggers TetrisPlayAgain_Update(u32 TimePassed);
 void TetrisPlayAgain_Init();
 void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr);
-
+void TetrisPlayAgain_OnExit(void* stateMachineDataPtr);
 
 #endif /* INC_TETRISPLAYAGAINSCREEN_H_ */

@@ -31,6 +31,12 @@ typedef enum {
 }BOARD_CELL_STATE;
 
 static u16 _gameBoardArray[TETRIS_BOARD_ROWS];
+
+/*
+ * external dependencies
+ * that are passed in to
+ * Tetris_Init
+ * */
 static TetrisDrawRect _drawRect;
 static TetrisDrawActiveBlock _drawActiveBlock;
 static TetrisDrawStationaryBlock _drawStationaryBlock;

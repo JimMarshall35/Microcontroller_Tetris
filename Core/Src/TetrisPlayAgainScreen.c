@@ -14,7 +14,7 @@ static u8 _startLevel;
 
 Tetris_Modes_StateTriggers TetrisPlayAgain_Update(u32 TimePassed){
 
-	/* Will have option to go back to main menu. */
+	/* Will have option to go back to main menu.  67 */
 	GPIO_PinState buttonBState = HAL_GPIO_ReadPin(BUTTON_B_GPIO_Port, BUTTON_B_Pin);
 	if(buttonBState == GPIO_PIN_SET){
 		TetrisMain_SetStateMachineDataPointer(&_startLevel);
@@ -31,8 +31,13 @@ void TetrisPlayAgain_Init(){
 void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr){
 	_startLevel = *((u8*)stateMachineDataPtr);
 	gfxClearFrameBuffer();
+	ClearUpdateRegions();
 	UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(0,0,0,84);
-	gfxWriteTextLineToFrameBuffer(2,0,"Play Again?");
+	gfxWriteTextLineToFrameBuffer(0,0,"Play Again?");
 	gfxFinishDrawing(&gLcdScreen);
 
+}
+
+void TetrisPlayAgain_OnExit(void* stateMachineDataPtr){
+	ClearScreen(&gLcdScreen);
 }

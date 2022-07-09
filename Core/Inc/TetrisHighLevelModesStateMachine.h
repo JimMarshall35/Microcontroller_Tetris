@@ -27,6 +27,7 @@ typedef enum{
 
 typedef Tetris_Modes_StateTriggers (*UpdateStateFunction)(u32 timePassed);
 typedef void (*EnterStateFunction)(void* data);
+typedef void (*ExitStateFunction)(void* data);
 
 typedef struct{
 	Tetris_Modes_States destination;
@@ -36,6 +37,7 @@ typedef struct{
 typedef struct{
 	UpdateStateFunction UpdateFunction;
 	EnterStateFunction OnEnterFunction;
+	ExitStateFunction OnExitFunction;
 	u8 NumTransitions;
 	const Transition* Transitions;
 }State;

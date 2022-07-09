@@ -43,16 +43,20 @@ void TetrisMain_Init(){
 	_states[Playing].Transitions = _playingLevelSelectTransitions;
 	_states[Playing].UpdateFunction = &TetrisGame_Update;
 	_states[Playing].OnEnterFunction = &TetrisGame_OnEnter;
+	_states[Playing].OnExitFunction = &TetrisGame_OnExit;
 
 	_states[LevelSelect].NumTransitions = LEVEL_SELECT_NUM_TRANSITIONS;
 	_states[LevelSelect].Transitions = _levelSelectTransitions;
 	_states[LevelSelect].UpdateFunction = &TetrisLevelSelect_Update;
 	_states[LevelSelect].OnEnterFunction = &TetrisLevelSelect_OnEnter;
+	_states[LevelSelect].OnExitFunction = &TetrisLevelSelect_OnExit;
 
 	_states[PlayAgainDialogue].NumTransitions = PLAY_AGAIN_SCREEN_NUM_TRANSITIONS;
 	_states[PlayAgainDialogue].Transitions = _playAgainScreenTransitions;
-	_states[PlayAgainDialogue].OnEnterFunction = &TetrisPlayAgain_OnEnter;
 	_states[PlayAgainDialogue].UpdateFunction = &TetrisPlayAgain_Update;
+	_states[PlayAgainDialogue].OnEnterFunction = &TetrisPlayAgain_OnEnter;
+	_states[PlayAgainDialogue].OnExitFunction = &TetrisPlayAgain_OnExit;
+
 
 }
 
@@ -65,6 +69,7 @@ void TetrisMain_Update(u32 timePassed){
 	Transition* transitions = _states[_currentState].Transitions;
 	for(i32 i=0; i<numTransitions; i++){
 		if(transitions[i].trigger == updateResult){
+			_states[_currentState].OnExitFunction(_stateMachineDataPointer);
 			_currentState = transitions[i].destination;
 			_states[_currentState].OnEnterFunction(_stateMachineDataPointer);
 		}
