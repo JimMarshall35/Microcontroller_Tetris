@@ -12,13 +12,13 @@ static u32 _accumulatedPlaytime = 0;//0xdeadbeef;
 
 u32 TetrisAccumulatedPlaytime_Load(u32 startAddress){
 	_accumulatedPlaytime = *((u32*)startAddress);
-	return startAddress += sizeof(u32);
+	return startAddress + sizeof(u32);
 }
 
 
 u32 TetrisAccumulatedPlaytime_Save(u32 startAddress){
 	HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD,startAddress, _accumulatedPlaytime);
-	return startAddress += sizeof(u32);
+	return startAddress + sizeof(u32);
 }
 
 u32 TetrisAccumulatedPlaytime_GetAccumulatedPlaytime(){
