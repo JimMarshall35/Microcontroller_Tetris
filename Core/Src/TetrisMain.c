@@ -3,6 +3,10 @@
  *
  *  Created on: Jul 5, 2022
  *      Author: James.Marshall
+ *
+ * At the highest level the tetris game is a state
+ * machine, with states such as Playing, LevelSelect,
+ * PlayAgainDialogue ect, which is implemented in this file.
  */
 
 #include "TetrisHighLevelModesStateMachineDefs.h"
@@ -47,11 +51,14 @@ static Tetris_Modes_States _currentState = Playing;
 
 
 void TetrisMain_Init(){
+	/* Setup the state machines states */
 	TetrisPersistantData_LoadAllPeristantData();
 	//TetrisPersistantData_SaveAllPersistantData();
 	TetrisGame_Init();
 	u8 startLevel = 5;
+	/* Lead-in to the first state */
 	TetrisGame_OnEnter(&startLevel,NoState);
+
 	_states[Playing].NumTransitions = PLAYING_NUM_TRANSITIONS;
 	_states[Playing].Transitions = _playingTransitions;
 	_states[Playing].UpdateFunction = &TetrisGame_Update;
@@ -80,14 +87,18 @@ void TetrisMain_Init(){
 }
 
 void TetrisMain_Update(u32 timePassed){
+	/* Call update on the current state, the return value of update will determine there should be a change to a new state */
 	Tetris_Modes_StateTriggers updateResult = _states[_currentState].UpdateFunction(timePassed);
 	if(updateResult == NoChange){
 		return;
 	}
+	/* If we're at this point there should be a change in state */
 	u32 numTransitions = _states[_currentState].NumTransitions;
 	Transition* transitions = _states[_currentState].Transitions;
+	/* Find the transition for the state change trigger returned by update */
 	for(i32 i=0; i<numTransitions; i++){
 		if(transitions[i].trigger == updateResult){
+			/* Change state and call enter and exit functions for the transition */
 			Tetris_Modes_States last = _currentState;
 			_states[_currentState].OnExitFunction(_stateMachineDataPointer, transitions[i].destination);
 			_currentState = transitions[i].destination;
