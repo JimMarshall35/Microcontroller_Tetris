@@ -34,7 +34,8 @@ Core/Src/TetrisEnterHighScore.o: ../Core/Src/TetrisEnterHighScore.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
- ../Core/Inc/LcdGraphics.h ../Core/Inc/lcd_pcd8544_ll.h
+ ../Core/Inc/LcdGraphics.h ../Core/Inc/lcd_pcd8544_ll.h \
+ ../Core/Inc/AnalogStick.h ../Core/Inc/TetrisPersistantData.h
 ../Core/Inc/TetrisEnterHighScore.h:
 ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
 ../Core/Inc/BasicTypedefs.h:
@@ -74,3 +75,5 @@ Core/Src/TetrisEnterHighScore.o: ../Core/Src/TetrisEnterHighScore.c \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
 ../Core/Inc/LcdGraphics.h:
 ../Core/Inc/lcd_pcd8544_ll.h:
+../Core/Inc/AnalogStick.h:
+../Core/Inc/TetrisPersistantData.h:

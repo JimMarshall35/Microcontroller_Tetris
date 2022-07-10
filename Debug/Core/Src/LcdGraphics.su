@@ -19,3 +19,4 @@
 ../Core/Src/LcdGraphics.c:481:6:gfxDrawAxisAlignedRect	24	static
 ../Core/Src/LcdGraphics.c:490:6:ClearUpdateRegions	16	static
 ../Core/Src/LcdGraphics.c:501:6:ClearScreen	24	static
+../Core/Src/LcdGraphics.c:513:6:gfxClearFrameBufferRow	24	static

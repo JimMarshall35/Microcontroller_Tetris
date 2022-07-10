@@ -163,13 +163,13 @@ static void UpdateTetrisGame(u32 timePassed){
 	GPIO_PinState buttonBState = HAL_GPIO_ReadPin(BUTTON_B_GPIO_Port, BUTTON_B_Pin);
 
 	const i32 twelveBitMax = 4096;
-	if(analogXChange > (twelveBitMax/5)){
+	if(analogXChange > (twelveBitMax/3)){
 		Tetris_MoveRight();
 	}
-	else if(analogXChange < -(twelveBitMax/5)){
+	else if(analogXChange < -(twelveBitMax/3)){
 		Tetris_MoveLeft();
 	}
-	else if(analogYChange > (twelveBitMax/5)){
+	else if(analogYChange > (twelveBitMax/3)){
 		_movingDownResult = Tetris_MoveDown();
 		movingDown = false;
 	}
@@ -251,6 +251,7 @@ static void InitCurrentLevelTetrisScores(){
 
 Tetris_Modes_StateTriggers CheckForHighScore(){
 	if(TetrisHighScores_IsNewHighScore(_score) == true){
+		TetrisMain_SetStateMachineDataPointer(&_score);
 		return GameOverNewHighScore;
 	}
 	else{

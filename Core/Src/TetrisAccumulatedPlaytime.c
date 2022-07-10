@@ -8,7 +8,7 @@
 #include "main.h"
 #include "stm32f3xx_hal_flash_ex.h"
 
-static u32 _accumulatedPlaytime = 0;//0xdeadbeef;
+static u32 _accumulatedPlaytime = 0x0018EE6C;
 
 u32 TetrisAccumulatedPlaytime_Load(u32 startAddress){
 	_accumulatedPlaytime = *((u32*)startAddress);

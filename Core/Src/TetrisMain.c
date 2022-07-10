@@ -48,8 +48,9 @@ static Tetris_Modes_States _currentState = Playing;
 
 void TetrisMain_Init(){
 	TetrisPersistantData_LoadAllPeristantData();
+	//TetrisPersistantData_SaveAllPersistantData();
 	TetrisGame_Init();
-	u8 startLevel = 8;
+	u8 startLevel = 5;
 	TetrisGame_OnEnter(&startLevel,NoState);
 	_states[Playing].NumTransitions = PLAYING_NUM_TRANSITIONS;
 	_states[Playing].Transitions = _playingTransitions;

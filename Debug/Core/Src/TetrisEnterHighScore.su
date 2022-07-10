@@ -1,4 +1,6 @@
-../Core/Src/TetrisEnterHighScore.c:18:6:DrawHighScoresToFrameBuffer	48	static
-../Core/Src/TetrisEnterHighScore.c:32:28:TetrisEnterHighScore_Update	24	static
-../Core/Src/TetrisEnterHighScore.c:44:6:TetrisEnterHighScore_OnEnter	16	static
-../Core/Src/TetrisEnterHighScore.c:62:6:TetrisEnterHighScore_OnExit	16	static
+../Core/Src/TetrisEnterHighScore.c:29:13:WriteSingleHighScoreToFrameBuffer	48	static
+../Core/Src/TetrisEnterHighScore.c:40:13:DrawHighScoresToFrameBuffer	16	static
+../Core/Src/TetrisEnterHighScore.c:48:13:BlinkInitialBeingSet	24	static
+../Core/Src/TetrisEnterHighScore.c:67:28:TetrisEnterHighScore_Update	40	static
+../Core/Src/TetrisEnterHighScore.c:139:6:TetrisEnterHighScore_OnEnter	16	static
+../Core/Src/TetrisEnterHighScore.c:161:6:TetrisEnterHighScore_OnExit	16	static

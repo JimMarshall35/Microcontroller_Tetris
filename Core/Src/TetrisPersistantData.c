@@ -3,6 +3,19 @@
  *
  *  Created on: Jul 9, 2022
  *      Author: James.Marshall
+ *
+ * To save data to flash rom on an f303k8 microcontroller
+ * you have to first erase it, which you can only do in "pages" of 2kb.
+ *
+ * In the tetris game the final 2kb page is reserved for persistent game
+ * data like high scores and the accumulated play time counter which is used for
+ * RNG and so there is 2kb less for code than there would otherwise be.
+ *
+ * When saved the entirety of the persistent data must be saved together
+ * and so this file provides a function that creates an unlocked flash context,
+ * erases the page and then writes all the persistent data together calling all functions
+ * from other modules that save flash data while the flash is unlocked and last page is freshly
+ * erased.
  */
 
 

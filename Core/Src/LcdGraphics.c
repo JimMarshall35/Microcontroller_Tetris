@@ -16,7 +16,7 @@
 
 
 
-unsigned char gFrameBuffer[(PIXELS_HEIGHT/8)*PIXELS_WIDTH];
+u8 gFrameBuffer[(PIXELS_HEIGHT/8)*PIXELS_WIDTH];
 
 ScreenRow gScreenRegionsToUpdate[SCREEN_NUM_ROWS] = {
 		{0,0,0},
@@ -510,7 +510,12 @@ void ClearScreen(LCD_PCD8544_screen_t* scr){
 }
 
 
+void gfxClearFrameBufferRow(u8 rowIndex, u8 colStart, u8 amount){
+	u8* frameBufferStartPtr = &gFrameBuffer[(rowIndex * PIXELS_WIDTH) + colStart];
 
+	memset(frameBufferStartPtr, 0, amount);
+
+}
 
 
 

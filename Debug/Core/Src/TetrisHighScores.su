@@ -6,3 +6,4 @@
 ../Core/Src/TetrisHighScores.c:77:6:TetrisHighScores_IsNewHighScore	24	static
 ../Core/Src/TetrisHighScores.c:86:12:TetrisHighScores_GetHighScoreAtIndex	16	static
 ../Core/Src/TetrisHighScores.c:91:5:TetrisHighScores_Save	16	static
+../Core/Src/TetrisHighScores.c:98:4:TetrisHighScores_AddHighScore	48	static

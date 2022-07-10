@@ -11,11 +11,11 @@
 
 
 static HighScore _highScores[NUM_HIGHSCORES_SAVED] = {
-		{{'J','i','m'}, 200420},
-		{{'J','i','m'}, 100000},
-		{{'F','A','T'}, 50000},
-		{{'J','i','m'}, 25000},
-		{{'J','i','m'}, 5000},
+		{{'c','p','u'}, 40000},
+		{{'c','p','u'}, 20000},
+		{{'c','p','u'}, 10000},
+		{{'c','p','u'}, 5000},
+		{{'c','p','u'}, 2500},
 };
 static u32 _highScoreCellSize = 0;
 
@@ -95,7 +95,35 @@ u32 TetrisHighScores_Save(u32 startAddress){
 	return startAddress + (_highScoreCellSize * NUM_HIGHSCORES_SAVED);
 }
 
+u8 TetrisHighScores_AddHighScore(u32 highScore){
 
+	u8 rval = 255;
+	HighScore cachedHighScore;
+	for(u32 i=0; i<NUM_HIGHSCORES_SAVED; i++){
+		HighScore* thisHighScore = &_highScores[i];
+
+		if(highScore > thisHighScore->Score && rval == 255){
+			cachedHighScore = *thisHighScore;
+			rval = i;
+			thisHighScore->Score = highScore;
+			thisHighScore->Initials[0] = 'A';
+			thisHighScore->Initials[1] = 'A';
+			thisHighScore->Initials[2] = 'A';
+
+		}
+		if(i > rval){
+			HighScore cachedHighScore2 = *thisHighScore;
+			thisHighScore->Score = cachedHighScore.Score;
+			thisHighScore->Initials[0] = cachedHighScore.Initials[0];
+			thisHighScore->Initials[1] = cachedHighScore.Initials[1];
+			thisHighScore->Initials[2] = cachedHighScore.Initials[2];
+			cachedHighScore = cachedHighScore2;
+
+		}
+
+	}
+	return rval;
+}
 
 
 

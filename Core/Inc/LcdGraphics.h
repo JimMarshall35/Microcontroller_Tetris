@@ -38,6 +38,7 @@ void gfxDrawAxisAlignedRect(u8 tlX, u8 tlY, u8 brX, u8 brY);
 void gfxFinishDrawing(LCD_PCD8544_screen_t* scr);
 void gfxWriteTextLineToFrameBuffer(u8 vIndex, u8 hIndex, const char* string);
 void gfxMidPointCircleDraw(int x_centre, int y_centre, int r);
+void gfxClearFrameBufferRow(u8 rowIndex, u8 colStart, u8 amount);
 void UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(u8 rowStart, u8 rowStop, u8 colStart, u8 colStop);
 void ClearUpdateRegions();
 void ClearScreen(LCD_PCD8544_screen_t* scr);

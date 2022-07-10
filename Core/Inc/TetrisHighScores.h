@@ -31,6 +31,15 @@ bool TetrisHighScores_IsNewHighScore(u32 potentialHighScore);
 
 HighScore* TetrisHighScores_GetHighScoreAtIndex(u8 atIndex);
 
+/*
+ * to be called passing a known high score, one that's confirmed by
+ * TetrisHighScores_IsNewHighScore.
+ *
+ * Inserts it into the high scores data structure and returns the new ranking
+ * with 0 being first place and 4 being last
+ * */
+u8 TetrisHighScores_AddHighScore(u32 highScore);
+
 
 //void LoadHighScores(HighScore* output);
 //void SaveHighScores(HighScore* input);
