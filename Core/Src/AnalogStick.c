@@ -9,6 +9,7 @@
 #include "AnalogStick.h"
 
 u16 AD_RES = 0;
+static bool _isAnalogStickExtended = false;
 
 void ReadAnalogStick(ADC_HandleTypeDef* adc, u16* outputX, u16* outputY){
 		//LCD_PCD8544_clear_ram(&gLcdScreen);
@@ -56,4 +57,81 @@ void ReadAnalogStickChange(ADC_HandleTypeDef* adc, i32* outputX, i32* outputY){
 	const i32 twelveBitMax = 4096;
 	*outputX = (x - (twelveBitMax/2));
 	*outputY = (y - (twelveBitMax/2));
+}
+
+
+ANALOG_STICK_DPAD_RESULT EmulateDPad(ADC_HandleTypeDef* adc){
+	i32 analogXChange, analogYChange;
+	ReadAnalogStickChange(adc,&analogXChange,&analogYChange);
+	ANALOG_STICK_DPAD_RESULT res = NO_DIRECTION;
+	const i32 twelveBitMax = 4096;
+	if(analogYChange > (twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res =  DOWN;
+		}
+	}
+	else if(analogYChange < -(twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = UP;
+		}
+	}
+	else if(analogXChange > (twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = RIGHT;
+		}
+	}
+	else if(analogXChange < -(twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = LEFT;
+		}
+	}
+	else{
+		_isAnalogStickExtended = false;
+	}
+	return res;
+}
+
+
+ANALOG_STICK_DPAD_RESULT EmulateDPadReturningXAndYChange(ADC_HandleTypeDef* adc, i32* rXChange, i32* rYChange){
+	i32 analogXChange, analogYChange;
+	ReadAnalogStickChange(adc,&analogXChange,&analogYChange);
+	*rXChange = analogXChange;
+	*rYChange = analogYChange;
+	ANALOG_STICK_DPAD_RESULT res = NO_DIRECTION;
+	const i32 twelveBitMax = 4096;
+	if(analogYChange > (twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res =  DOWN;
+		}
+
+	}
+	else if(analogYChange < -(twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = UP;
+
+		}
+
+	}
+	else if(analogXChange > (twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = RIGHT;
+		}
+	}
+	else if(analogXChange < -(twelveBitMax/3)){
+		if(_isAnalogStickExtended == false){
+			_isAnalogStickExtended = true;
+			res = LEFT;
+		}
+	}
+	else{
+		_isAnalogStickExtended = false;
+	}
+	return res;
 }

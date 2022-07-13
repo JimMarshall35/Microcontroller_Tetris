@@ -12,6 +12,7 @@ extern LCD_PCD8544_screen_t gLcdScreen;
 
 static u8 _startLevel;
 
+
 Tetris_Modes_StateTriggers TetrisPlayAgain_Update(u32 TimePassed){
 
 	/* Will have option to go back to main menu.  67 */
@@ -34,6 +35,7 @@ void TetrisPlayAgain_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States prev
 	ClearUpdateRegions();
 	UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(0,0,0,84);
 	gfxWriteTextLineToFrameBuffer(0,0,"Play Again?");
+
 	gfxFinishDrawing(&gLcdScreen);
 
 }

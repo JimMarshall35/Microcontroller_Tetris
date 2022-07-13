@@ -281,7 +281,7 @@ void TetrisGame_Init(){
 			&OnLinesCleared,
 			&OnGameOver);
 	//TetrisHighScores_Init();
-	srand(TetrisAccumulatedPlaytime_GetAccumulatedPlaytime());
+	//srand(TetrisAccumulatedPlaytime_GetAccumulatedPlaytime());
 
 }
 
@@ -302,7 +302,7 @@ void TetrisGame_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousS
 
 void TetrisGame_OnExit(void* stateMachineDataPtr, Tetris_Modes_States nextState){
 	ClearScreen(&gLcdScreen);
-	TetrisPersistantData_SaveAllPersistantData();
+	//TetrisPersistantData_SaveAllPersistantData();
 }
 
 

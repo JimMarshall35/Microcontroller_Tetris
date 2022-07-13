@@ -77,6 +77,8 @@ Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
 			if(highScore->Initials[_settingInitial] < 'A'){
 				highScore->Initials[_settingInitial] = 'Z';
 			}
+			_blinkState = false;
+			_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
 		}
 
 
@@ -89,6 +91,9 @@ Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
 			if(highScore->Initials[_settingInitial] > 'Z'){
 				highScore->Initials[_settingInitial] = 'A';
 			}
+			_blinkState = false;
+			_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
+
 		}
 
 
@@ -101,7 +106,7 @@ Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
 			if(_settingInitial >= 3){
 				_settingInitial = 0;
 			}
-			_blinkState = true;
+			_blinkState = false;
 			_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
 		}
 
@@ -113,7 +118,7 @@ Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
 			if(_settingInitial < 0){
 				_settingInitial = 2;
 			}
-			_blinkState = true;
+			_blinkState = false;
 			_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
 		}
 

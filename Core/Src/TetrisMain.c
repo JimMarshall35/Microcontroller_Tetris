@@ -47,7 +47,7 @@ const Transition _enterNewHighScoreScreenTransitions[ENTER_NEW_HIGH_SCORE_SCREEN
 };
 
 static State _states[NumStates];
-static Tetris_Modes_States _currentState = Playing;
+static Tetris_Modes_States _currentState = LevelSelect;
 
 
 void TetrisMain_Init(){
@@ -57,7 +57,8 @@ void TetrisMain_Init(){
 	TetrisGame_Init();
 	u8 startLevel = 5;
 	/* Lead-in to the first state */
-	TetrisGame_OnEnter(&startLevel,NoState);
+	//TetrisGame_OnEnter(&startLevel,NoState);
+	TetrisLevelSelect_OnEnter(0,NoState);
 
 	_states[Playing].NumTransitions = PLAYING_NUM_TRANSITIONS;
 	_states[Playing].Transitions = _playingTransitions;

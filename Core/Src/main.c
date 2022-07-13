@@ -131,7 +131,6 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-   srand(time(NULL));   // Initialization, should only be called once.
    TetrisMain_Init();
 
 

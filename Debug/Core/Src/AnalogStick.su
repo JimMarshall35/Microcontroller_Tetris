@@ -1,2 +1,4 @@
-../Core/Src/AnalogStick.c:13:6:ReadAnalogStick	32	static
-../Core/Src/AnalogStick.c:37:6:ReadAnalogStickChange	32	static
+../Core/Src/AnalogStick.c:14:6:ReadAnalogStick	32	static
+../Core/Src/AnalogStick.c:38:6:ReadAnalogStickChange	32	static
+../Core/Src/AnalogStick.c:63:26:EmulateDPad	32	static
+../Core/Src/AnalogStick.c:99:26:EmulateDPadReturningXAndYChange	40	static

@@ -33,7 +33,8 @@ Core/Src/TetrisLevelSelectScreen.o: ../Core/Src/TetrisLevelSelectScreen.c \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h \
- ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h
+ ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
+ ../Core/Inc/main.h ../Core/Inc/AnalogStick.h
 ../Core/Inc/TetrisLevelSelectScreen.h:
 ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
 ../Core/Inc/BasicTypedefs.h:
@@ -70,3 +71,5 @@ Core/Src/TetrisLevelSelectScreen.o: ../Core/Src/TetrisLevelSelectScreen.c \
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_spi_ex.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h:
+../Core/Inc/main.h:
+../Core/Inc/AnalogStick.h:
