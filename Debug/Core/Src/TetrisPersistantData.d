@@ -1,8 +1,7 @@
 Core/Src/TetrisPersistantData.o: ../Core/Src/TetrisPersistantData.c \
  ../Core/Inc/TetrisPersistantData.h ../Core/Inc/TetrisHighScores.h \
  ../Core/Inc/TetrisHighScoresDefs.h ../Core/Inc/BasicTypedefs.h \
- ../Core/Inc/TetrisAccumulatedPlaytime.h ../Core/Inc/main.h \
- ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
+ ../Core/Inc/main.h ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h \
  ../Core/Inc/stm32f3xx_hal_conf.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_rcc.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_def.h \
@@ -38,7 +37,6 @@ Core/Src/TetrisPersistantData.o: ../Core/Src/TetrisPersistantData.c \
 ../Core/Inc/TetrisHighScores.h:
 ../Core/Inc/TetrisHighScoresDefs.h:
 ../Core/Inc/BasicTypedefs.h:
-../Core/Inc/TetrisAccumulatedPlaytime.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal.h:
 ../Core/Inc/stm32f3xx_hal_conf.h:

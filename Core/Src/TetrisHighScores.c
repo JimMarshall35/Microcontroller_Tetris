@@ -56,18 +56,6 @@ static void SaveHighScores(HighScore* input, u32 addressToWrite){
 }
 
 u32 TetrisHighScores_Load(u32 startAddress){
-	/*
-		 * used to initially bootstrap the high scores into rom
-
-		HighScore hs[NUM_HIGHSCORES_SAVED] = {
-				{{'J','i','m'}, 200420},
-				{{'J','i','m'}, 100000},
-				{{'F','A','T'}, 50000},
-				{{'J','i','m'}, 25000},
-				{{'J','i','m'}, 5000},
-		};
-	SaveHighScores(hs);
-	*/
 	SetHighScoreCellSize();
 	LoadHighScores(_highScores, startAddress);
 	return startAddress + (_highScoreCellSize * NUM_HIGHSCORES_SAVED);

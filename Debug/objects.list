@@ -1,7 +1,6 @@
 "./Core/Src/AnalogStick.o"
 "./Core/Src/LcdGraphics.o"
 "./Core/Src/OS.o"
-"./Core/Src/TetrisAccumulatedPlaytime.o"
 "./Core/Src/TetrisCore.o"
 "./Core/Src/TetrisEnterHighScore.o"
 "./Core/Src/TetrisGame.o"

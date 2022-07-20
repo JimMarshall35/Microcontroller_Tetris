@@ -65,6 +65,7 @@ static void BlinkInitialBeingSet(){
 }
 
 Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
+	/*
 	i32 analogXChange, analogYChange;
 	ReadAnalogStickChange(&hadc2,&analogXChange,&analogYChange);
 	HighScore* highScore;
@@ -125,6 +126,44 @@ Tetris_Modes_StateTriggers TetrisEnterHighScore_Update(u32 timePassed){
 	}
 	else{
 		_isAnalogStickExtended = false;
+	}
+	*/
+	HighScore* highScore;
+	switch(EmulateDPad(&hadc2)){
+	case UP:
+		highScore = TetrisHighScores_GetHighScoreAtIndex(_newHighScoreRank);
+		highScore->Initials[_settingInitial]++;
+		if(highScore->Initials[_settingInitial] > 'Z'){
+			highScore->Initials[_settingInitial] = 'A';
+		}
+		_blinkState = false;
+		_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
+		break;
+	case DOWN:
+		highScore = TetrisHighScores_GetHighScoreAtIndex(_newHighScoreRank);
+		highScore->Initials[_settingInitial]--;
+		if(highScore->Initials[_settingInitial] < 'A'){
+			highScore->Initials[_settingInitial] = 'Z';
+		}
+		_blinkState = false;
+		_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
+		break;
+	case LEFT:
+		_settingInitial--;
+		if(_settingInitial < 0){
+			_settingInitial = 2;
+		}
+		_blinkState = false;
+		_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
+		break;
+	case RIGHT:
+		_settingInitial++;
+		if(_settingInitial >= 3){
+			_settingInitial = 0;
+		}
+		_blinkState = false;
+		_blinkTimer = ENTER_INITIAL_BLINK_PERIOD;
+		break;
 	}
 
 	_blinkTimer += timePassed;

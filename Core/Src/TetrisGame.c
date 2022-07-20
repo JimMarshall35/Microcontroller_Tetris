@@ -18,7 +18,6 @@
 #include "LcdGraphics.h"
 #include "main.h"
 #include "TetrisPersistantData.h"
-#include "TetrisAccumulatedPlaytime.h"
 
 //#include "stm32f3xx_hal_flash.h"
 //__attribute__((__section__(".user_data"))) const char userConfig[64];
@@ -29,10 +28,7 @@ extern  ADC_HandleTypeDef hadc2;
 extern LCD_PCD8544_screen_t gLcdScreen;
 #define TETRIS_BOARD_RIGHT_EDGE_COL 37
 #define TETRIS_BOARD_LEFT_EDGE_COL 4
-#define TETRIS_SCORE_SINGLE 40
-#define TETRIS_SCORE_DOUBLE 100
-#define TETRIS_SCORE_TRIPLE 300
-#define TETRIS_SCORE_TETRIS 1200
+
 #define TETRIS_LINES_PER_LEVEL_UP 10
 #define TETRIS_NUM_LEVELS 21
 #define TETRIS_START_LEVEL 5
@@ -78,7 +74,6 @@ static u32 _currentLevelTetrisScores[4];
 
 static u8 _currentLevel = 5;
 
-//u32 FlashAddress = 0x08040000;
 static void InitCurrentLevelTetrisScores();
 
 static u8 GetRandomNumberBetweenZeroAndSix(){
@@ -129,10 +124,7 @@ static void OnLinesCleared(u8 numLinesCleared){
 }
 
 static void OnGameOver(){
-	//_linesCleared = 0;
-	//_score = 0;
-	//_newScoreToDisplay = true;
-	//SetLevel(TETRIS_START_LEVEL);
+	// Not used
 }
 
 static void IncrementTetrisTimer(u32 timePassed, bool moveDown){
@@ -261,7 +253,6 @@ Tetris_Modes_StateTriggers CheckForHighScore(){
 
 
 Tetris_Modes_StateTriggers TetrisGame_Update(u32 timePassed){
-	TetrisAccumulatedPlaytime_IncrementAccumulatedPlaytime(timePassed);
 	UpdateTetrisGame(timePassed);
 	DrawTetrisGame();
 	if(_movingDownResult == MoveDownResultGameOver){
@@ -280,9 +271,6 @@ void TetrisGame_Init(){
 			&GetRandomNumberBetweenZeroAndSix,
 			&OnLinesCleared,
 			&OnGameOver);
-	//TetrisHighScores_Init();
-	//srand(TetrisAccumulatedPlaytime_GetAccumulatedPlaytime());
-
 }
 
 void TetrisGame_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousState){
@@ -302,7 +290,6 @@ void TetrisGame_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States previousS
 
 void TetrisGame_OnExit(void* stateMachineDataPtr, Tetris_Modes_States nextState){
 	ClearScreen(&gLcdScreen);
-	//TetrisPersistantData_SaveAllPersistantData();
 }
 
 

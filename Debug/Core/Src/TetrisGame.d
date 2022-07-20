@@ -36,8 +36,7 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
  ../Drivers/STM32F3xx_HAL_Driver/Inc/stm32f3xx_hal_tim_ex.h \
  ../Core/Inc/BasicTypedefs.h ../Core/Inc/LcdGraphics.h \
  ../Core/Inc/lcd_pcd8544_ll.h ../Core/Inc/main.h \
- ../Core/Inc/TetrisPersistantData.h \
- ../Core/Inc/TetrisAccumulatedPlaytime.h
+ ../Core/Inc/TetrisPersistantData.h
 ../Core/Inc/TetrisGame.h:
 ../Core/Inc/TetrisHighLevelModesStateMachineDefs.h:
 ../Core/Inc/BasicTypedefs.h:
@@ -81,4 +80,3 @@ Core/Src/TetrisGame.o: ../Core/Src/TetrisGame.c ../Core/Inc/TetrisGame.h \
 ../Core/Inc/lcd_pcd8544_ll.h:
 ../Core/Inc/main.h:
 ../Core/Inc/TetrisPersistantData.h:
-../Core/Inc/TetrisAccumulatedPlaytime.h:

@@ -1,4 +1,0 @@
-../Core/Src/TetrisAccumulatedPlaytime.c:13:5:TetrisAccumulatedPlaytime_Load	16	static
-../Core/Src/TetrisAccumulatedPlaytime.c:19:5:TetrisAccumulatedPlaytime_Save	16	static
-../Core/Src/TetrisAccumulatedPlaytime.c:24:5:TetrisAccumulatedPlaytime_GetAccumulatedPlaytime	4	static
-../Core/Src/TetrisAccumulatedPlaytime.c:28:5:TetrisAccumulatedPlaytime_IncrementAccumulatedPlaytime	16	static
