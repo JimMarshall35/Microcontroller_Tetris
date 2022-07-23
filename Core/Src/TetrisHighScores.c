@@ -18,6 +18,7 @@ static HighScore _highScores[NUM_HIGHSCORES_SAVED] = {
 		{{'c','p','u'}, 2500},
 };
 static u32 _highScoreCellSize = 0;
+static u32 _nextHighScoreSaveAddress = 0;
 
 static void SetHighScoreCellSize(){
 	u32 size = sizeof(HighScore);
@@ -55,8 +56,41 @@ static void SaveHighScores(HighScore* input, u32 addressToWrite){
 
 }
 
-u32 TetrisHighScores_Load(u32 startAddress){
+static void ErasePagePreservingHighScores(){
+	FLASH_EraseInitTypeDef eraseInit;
+	eraseInit.NbPages = 1;
+	eraseInit.PageAddress = FINAL_PAGE_START_ADDRESS;
+	eraseInit.TypeErase = FLASH_TYPEERASE_PAGES;
+
+	u32 pageError;
+	HAL_FLASHEx_Erase(&eraseInit,&pageError);
+	SaveHighScores(_highScores,FINAL_PAGE_START_ADDRESS);
+	TetrisHighScores_Load();
+}
+
+static u32 SeekLatestHighScoresStartAddress(){
+	if(_highScoreCellSize == 0){
+		return 0;
+	}
+	u32 rval = FINAL_PAGE_START_ADDRESS;
+	do{
+		rval += (NUM_HIGHSCORES_SAVED * _highScoreCellSize);
+
+	}
+	while(*(((u32*)rval)+ 1) != 0xFFFFFFFF);
+
+
+	return (rval - (NUM_HIGHSCORES_SAVED * _highScoreCellSize));
+
+}
+
+
+u32 TetrisHighScores_Load(){
+
 	SetHighScoreCellSize();
+	u32 finalPage = FINAL_PAGE_START_ADDRESS;
+	u32 startAddress = SeekLatestHighScoresStartAddress();
+	_nextHighScoreSaveAddress = startAddress + (NUM_HIGHSCORES_SAVED * _highScoreCellSize);
 	LoadHighScores(_highScores, startAddress);
 	return startAddress + (_highScoreCellSize * NUM_HIGHSCORES_SAVED);
 }
@@ -77,10 +111,20 @@ HighScore* TetrisHighScores_GetHighScoreAtIndex(u8 atIndex){
 
 
 u32 TetrisHighScores_Save(u32 startAddress){
-	SetHighScoreCellSize();
+	//SetHighScoreCellSize();
+	if((_nextHighScoreSaveAddress + (_highScoreCellSize * NUM_HIGHSCORES_SAVED)) <= FINAL_PAGE_END_ADDRESS){
+		SaveHighScores(_highScores, _nextHighScoreSaveAddress);
+		//LoadHighScores(_highScores, _nextHighScoreSaveAddress);
+		_nextHighScoreSaveAddress += (_highScoreCellSize * NUM_HIGHSCORES_SAVED);
 
-	SaveHighScores(_highScores, startAddress);
-	return startAddress + (_highScoreCellSize * NUM_HIGHSCORES_SAVED);
+	}
+	else{
+		ErasePagePreservingHighScores();
+	}
+
+
+	//TetrisHighScores_Load();
+	return _nextHighScoreSaveAddress;
 }
 
 u8 TetrisHighScores_AddHighScore(u32 highScore){

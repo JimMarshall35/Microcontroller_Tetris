@@ -15,7 +15,7 @@
  * in rom for reading from. See TetrisPersistanceData.c
  * for usage
  * */
-u32 TetrisHighScores_Load(u32 startAddress);
+u32 TetrisHighScores_Load();
 /*
  * takes start address and returns next avaliable address
  * in rom for reading from. See TetrisPersistanceData.c
