@@ -21,6 +21,7 @@ Software:
   - change linker script to create a rom which has a default high score in the correct area of flash
   - revisit high score saving, try different way of minimising flash erases, use eeprom emulation library 
   - extend MusicPlayer to make some pipeline between its input and midi files, and probably make it more midi like
+  - add the rest of the sharp / flat notes into Buzzer.h/.c instead of just the ones the tetris tune needs 
   
 Hardware:
   - figure out a good way to get better sound
