@@ -18,7 +18,7 @@ Software:
   - add the option to go back to the main menu from playagain
   - add a title screen
   - change linker script to create a rom which has a default high score in the correct area of flash
-  - revisit high score saving, use eeprom emulation library
+  - revisit high score saving, try different way of minimising flash erases, use eeprom emulation library 
   
 Hardware:
   - figure out a good way to get better sound
