@@ -18,9 +18,13 @@ Software:
   - add the option to go back to the main menu from playagain
   - add a title screen
   - change linker script to create a rom which has a default high score in the correct area of flash
+  - revisit 
   
 Hardware:
+  - figure out a good way to get better sound
   - get a battery and make it work with it and be rechargable
-  - make en enclosure fo
+  - make en enclosure for the board
   - add volume control
   - wire up backlight with switch
+  - (possibly) make another one with an 8 bit stm chip or a cheaper one without so many unnecessary features and buttons instead of an analog stick
+  - (possibly) design a proper pcb
