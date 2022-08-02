@@ -1,2 +1,2 @@
-../Core/Src/Buzzer.c:71:6:Buzzer_Init	16	static
-../Core/Src/Buzzer.c:77:6:Buzzer_Note	16	static
+../Core/Src/Buzzer.c:74:6:Buzzer_Init	16	static
+../Core/Src/Buzzer.c:80:6:Buzzer_Note	16	static
