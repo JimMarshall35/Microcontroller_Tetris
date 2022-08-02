@@ -1,0 +1,3 @@
+../Core/Src/MusicPlayer.c:34:6:MusicPlayer_Init	16	static
+../Core/Src/MusicPlayer.c:38:6:MusicPlayer_StartTune	16	static
+../Core/Src/MusicPlayer.c:47:6:MusicPlayer_TimerISR	16	static

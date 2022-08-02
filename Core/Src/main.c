@@ -25,6 +25,7 @@
 #include "LcdGraphics.h"
 #include "BasicTypedefs.h"
 #include "TetrisMain.h"
+#include "MusicPlayer.h"
 
 
 /* USER CODE END Includes */
@@ -48,7 +49,9 @@
 
 SPI_HandleTypeDef hspi1;
 
+TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
+TIM_HandleTypeDef htim3;
 
 /* USER CODE BEGIN PV */
 
@@ -60,6 +63,8 @@ static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_TIM2_Init(void);
+static void MX_TIM1_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -101,11 +106,16 @@ int main(void)
   MX_SPI1_Init();
   MX_ADC2_Init();
   MX_TIM2_Init();
+  MX_TIM1_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
   //HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   // Calibrate The ADC On Power-Up For Better Accuracy
   //HAL_ADCEx_Calibration_Start(&hadc2);
+  //HAL_TIM_Base_Start(&htim1);
 
+  Buzzer_Init(&htim1);
+  HAL_TIM_Base_Start_IT(&htim3);
 
 
   // LCD - assign SPI interface and pins
@@ -133,17 +143,29 @@ int main(void)
   /* USER CODE BEGIN WHILE */
    TetrisMain_Init();
 
+   //HAL_TIM_RegisterCallback(&htim3,HAL_TIM_PERIOD_ELAPSED_CB_ID,&MusicPlayer_TimerISR);
 
+#define TEST_TUNE_LENGTH 7
+   MusicNote testTune[TEST_TUNE_LENGTH] = {
+		   {B,500},
+		   {A,100},
+		   {C,250},
+		   {B,500},
+		   {D,250},
+		   {E,125},
+		   {D,250},
+   };
+   MusicPlayer_StartTune(&testTune[0],TEST_TUNE_LENGTH);//HAL_TIM_PERIOD_ELAPSED_CB_ID
 
-  while (1)
-  {
-	  TetrisMain_Update(50);
-	  HAL_Delay(50);
+   while (1)
+   {
+	   TetrisMain_Update(50);
+	   HAL_Delay(50);
 
-    /* USER CODE END WHILE */
+	   /* USER CODE END WHILE */
 
-    /* USER CODE BEGIN 3 */
-  }
+	   /* USER CODE BEGIN 3 */
+   }
   /* USER CODE END 3 */
 }
 
@@ -177,15 +199,16 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV8;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC12;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_TIM1|RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
+  PeriphClkInit.Tim1ClockSelection = RCC_TIM1CLK_HCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();
@@ -300,6 +323,86 @@ static void MX_SPI1_Init(void)
 }
 
 /**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 0;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 4600;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterOutputTrigger2 = TIM_TRGO2_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TOGGLE;
+  sConfigOC.Pulse = 2300;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.BreakFilter = 0;
+  sBreakDeadTimeConfig.Break2State = TIM_BREAK2_DISABLE;
+  sBreakDeadTimeConfig.Break2Polarity = TIM_BREAK2POLARITY_HIGH;
+  sBreakDeadTimeConfig.Break2Filter = 0;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+  HAL_TIM_MspPostInit(&htim1);
+
+}
+
+/**
   * @brief TIM2 Initialization Function
   * @param None
   * @retval None
@@ -344,6 +447,51 @@ static void MX_TIM2_Init(void)
   /* USER CODE BEGIN TIM2_Init 2 */
 
   /* USER CODE END TIM2_Init 2 */
+
+}
+
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 20000;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
 
 }
 
@@ -397,34 +545,11 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-#define TWELVE_BIT_MAX 4095
-void DrawCursor(u16 adcX, u16 adcY){
-	f32 FractionDeviationFromCenterX = (f32)adcX / (f32)TWELVE_BIT_MAX;
-	FractionDeviationFromCenterX -= 0.5f;
-
-
-	f32 FractionDeviationFromCenterY = (f32)adcY / (f32)TWELVE_BIT_MAX;
-	FractionDeviationFromCenterY -= 0.5f;
-
-	f32 pixelPosX = FractionDeviationFromCenterX * (f32)PIXELS_WIDTH;
-	f32 pixelPosY = FractionDeviationFromCenterY * (f32)PIXELS_HEIGHT;
-	/*
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX - 1, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX + 1, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY - 1);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY + 1);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX - 2, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX + 2, (PIXELS_HEIGHT/2.0f)+pixelPosY);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY - 2);
-	gfxPlotPixel((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY + 2);
-	*/
-	//gfxMidPointCircleDraw((PIXELS_WIDTH/2.0f)+pixelPosX, (PIXELS_HEIGHT/2.0f)+pixelPosY,6);
-	gfxDrawAxisAlignedRect((PIXELS_WIDTH/2.0f)+pixelPosX - 2, (PIXELS_HEIGHT/2.0f)+pixelPosY -2, (PIXELS_WIDTH/2.0f)+pixelPosX + 2, (PIXELS_HEIGHT/2.0f)+pixelPosY +2);
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	if(htim == &htim3){
+		MusicPlayer_TimerISR();
+	}
 }
-
-
 
 
 /* USER CODE END 4 */

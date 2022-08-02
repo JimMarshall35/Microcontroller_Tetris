@@ -1,5 +1,7 @@
 "./Core/Src/AnalogStick.o"
+"./Core/Src/Buzzer.o"
 "./Core/Src/LcdGraphics.o"
+"./Core/Src/MusicPlayer.o"
 "./Core/Src/OS.o"
 "./Core/Src/TetrisCore.o"
 "./Core/Src/TetrisEnterHighScore.o"
