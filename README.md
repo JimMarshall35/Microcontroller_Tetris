@@ -12,6 +12,7 @@ a tetris game made out of:
 - Builds upon a preexisting library for the screen, adding the ability to draw lines, boxes, circles, pixels, ect.
 
 Still to do:
+
 Software:
   - make level select into more of a menu with options to turn the music on and off, ect
   - display high scores on this menu by scrolling them
@@ -19,6 +20,7 @@ Software:
   - add a title screen
   - change linker script to create a rom which has a default high score in the correct area of flash
   - revisit high score saving, try different way of minimising flash erases, use eeprom emulation library 
+  - extend MusicPlayer to make some pipeline between its input and midi files, and probably make it more midi like
   
 Hardware:
   - figure out a good way to get better sound
