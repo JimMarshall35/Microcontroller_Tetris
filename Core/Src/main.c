@@ -145,15 +145,30 @@ int main(void)
 
    //HAL_TIM_RegisterCallback(&htim3,HAL_TIM_PERIOD_ELAPSED_CB_ID,&MusicPlayer_TimerISR);
 
-#define TEST_TUNE_LENGTH 7
+#define TEST_TUNE_LENGTH 20
    MusicNote testTune[TEST_TUNE_LENGTH] = {
-		   {B,500},
-		   {A,100},
-		   {C,250},
-		   {B,500},
-		   {D,250},
-		   {E,125},
-		   {D,250},
+		   {E5,1043/3},
+		   {B4,474/3},
+		   {C5,479/3},
+		   {D5,1014/3},
+		   {C5,474/3},
+		   {B4,476/3},
+		   {A4,1049/3},
+		   {A4,474/3},
+		   {C5,479/3},
+		   {E5,1014/3},
+		   {D5,474/3},
+		   {C5,476/3},
+		   {B4,1049/3},
+		   {B4,453/3},
+		   {C5,437/3},
+		   {D5,1014/3},
+		   {E5,1014/3},
+		   {C5,1049/3},
+		   {A4,1014/3},
+		   {A4,1014/3},
+
+
    };
    MusicPlayer_StartTune(&testTune[0],TEST_TUNE_LENGTH);//HAL_TIM_PERIOD_ELAPSED_CB_ID
 
