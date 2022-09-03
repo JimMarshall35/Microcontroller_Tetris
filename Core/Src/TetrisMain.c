@@ -16,11 +16,13 @@
 #include "TetrisPlayAgainScreen.h"
 #include "TetrisPersistantData.h"
 #include "TetrisEnterHighScore.h"
+#include "TetrisViewHighScores.h"
 
-#define LEVEL_SELECT_NUM_TRANSITIONS 1
+#define LEVEL_SELECT_NUM_TRANSITIONS 2
 #define PLAYING_NUM_TRANSITIONS 2
 #define PLAY_AGAIN_SCREEN_NUM_TRANSITIONS 2
 #define ENTER_NEW_HIGH_SCORE_SCREEN_NUM_TRANSITIONS 1
+#define VIEW_HIGH_SCORES_SCREEN_NUM_TRANSITIONS 1
 
 
 static void* _stateMachineDataPointer = 0;
@@ -31,6 +33,7 @@ void TetrisMain_SetStateMachineDataPointer(void* dataPtr){
 
 const Transition _levelSelectTransitions[LEVEL_SELECT_NUM_TRANSITIONS] = {
 		{ Playing, StartPlaying },
+		{ ViewHighScoresScreen, LookAtHighScores },
 };
 
 const Transition _playingTransitions[PLAYING_NUM_TRANSITIONS] = {
@@ -43,8 +46,12 @@ const Transition _playAgainScreenTransitions[PLAY_AGAIN_SCREEN_NUM_TRANSITIONS] 
 		{ LevelSelect, GoToLevelSelectScreen },
 };
 
-const Transition _enterNewHighScoreScreenTransitions[ENTER_NEW_HIGH_SCORE_SCREEN_NUM_TRANSITIONS] ={
+const Transition _enterNewHighScoreScreenTransitions[ENTER_NEW_HIGH_SCORE_SCREEN_NUM_TRANSITIONS] = {
 		{ PlayAgainDialogue, HighScoreEntered },
+};
+
+const Transition _viewHighScoresScreenTransitions[VIEW_HIGH_SCORES_SCREEN_NUM_TRANSITIONS] = {
+		{ LevelSelect, GoToLevelSelectScreen },
 };
 
 static State _states[NumStates];
@@ -85,6 +92,11 @@ void TetrisMain_Init(){
 	_states[EnterNewHighScoreScreen].OnEnterFunction = &TetrisEnterHighScore_OnEnter;
 	_states[EnterNewHighScoreScreen].OnExitFunction = &TetrisEnterHighScore_OnExit;
 
+	_states[ViewHighScoresScreen].NumTransitions = VIEW_HIGH_SCORES_SCREEN_NUM_TRANSITIONS;
+	_states[ViewHighScoresScreen].Transitions = _viewHighScoresScreenTransitions;
+	_states[ViewHighScoresScreen].UpdateFunction = &TetrisViewHighScores_Update;
+	_states[ViewHighScoresScreen].OnEnterFunction = &TetrisViewHighScores_OnEnter;
+	_states[ViewHighScoresScreen].OnExitFunction = &TetrisViewHighScores_OnExit;
 
 }
 

@@ -15,6 +15,7 @@
 typedef enum{
 	SelectLevel = 0,
 	MusicOnOff,
+	ViewHighScores,
 	NumMenuRows
 }MenuRows;
 
@@ -109,6 +110,11 @@ static const char* _musicOnOffStartString_WithoutArrow = "  ";
 static const char* _musicOnOffEndString_withArrow = " >";
 static const char* _musicOnOffEndString_withoutArrow = "  ";
 
+static const char* _viewHighScoresStartString_WithArrow = "< ";
+static const char* _viewHighScoresEndString_WithArrow = " >";
+
+static const char* _viewHighScoresStartString_WithoutArrow = "  ";
+static const char* _viewHighScoresEndString_WithoutArrow = "  ";
 
 static bool _blinkState = true;
 
@@ -119,6 +125,24 @@ static bool _buttonReleasedSinceEnteringState = false;
 static u8 title[504] = { 255, 255, 3, 3, 243, 243, 3, 3, 255, 255, 3, 3, 243, 243, 3, 3, 255, 255, 3, 3, 255, 255, 3, 3, 243, 243, 255, 255, 3, 3, 243, 243, 51, 51, 51, 51, 51, 51, 255, 255, 12, 12, 12, 140, 252, 252, 12, 204, 236, 108, 108, 104, 224, 192, 0, 128, 192, 192, 192, 224, 240, 248, 152, 0, 0, 128, 192, 224, 224, 224, 224, 224, 230, 79, 15, 134, 192, 224, 224, 224, 224, 224, 224, 224, 255, 255, 192, 192, 255, 255, 192, 192, 207, 207, 192, 192, 255, 255, 192, 192, 255, 255, 192, 192, 255, 255, 192, 192, 207, 207, 255, 255, 192, 192, 255, 255, 192, 192, 207, 207, 192, 192, 255, 255, 0, 48, 120, 127, 31, 3, 0, 31, 63, 51, 51, 51, 51, 17, 0, 56, 61, 127, 103, 97, 97, 97, 64, 0, 31, 63, 31, 1, 112, 248, 252, 222, 14, 0, 112, 243, 231, 207, 206, 206, 206, 254, 124, 57, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, };
 extern unsigned char gFrameBuffer[];
 
+static const char* GetViewHighScoresStartString(){
+	if(_blinkState == false || _selectedRow != ViewHighScores){
+		return _viewHighScoresStartString_WithoutArrow;
+	}
+	else{
+		return _viewHighScoresStartString_WithArrow;
+	}
+
+}
+
+static const char* GetViewHighScoresEndString(){
+	if(_blinkState == false || _selectedRow != ViewHighScores){
+		return _viewHighScoresEndString_WithoutArrow;
+	}
+	else{
+		return _viewHighScoresEndString_WithArrow;
+	}
+}
 
 static const char* GetSelectLevelRowStartString(){
 	if(_blinkState == false || _selectedRow != SelectLevel){
@@ -174,9 +198,17 @@ static void WriteMusicOnOffToFrameBuffer(){
 
 	gfxClearFrameBufferRow(3,0,LCD_PCD8544_CHAR_WIDTH*14);
 	gfxWriteTextLineToFrameBuffer(3,0,stringBuffer);
-
 }
 
+static void WriteViewHighScoresToFrameBuffer(){
+	u8 stringBuffer[15];
+	sprintf(stringBuffer,"%sHighscores%s",
+			GetViewHighScoresStartString(),
+			GetViewHighScoresEndString());
+
+	gfxClearFrameBufferRow(4,0,LCD_PCD8544_CHAR_WIDTH*14);
+	gfxWriteTextLineToFrameBuffer(4,0,stringBuffer);
+}
 
 void ChangeCurrentLevelUpOrDown(i8 incOrDec){
 	_startLevel += incOrDec;
@@ -272,10 +304,10 @@ Tetris_Modes_StateTriggers TetrisLevelSelect_Update(u32 TimePassed){
 		_randomSeed += analogYChange;
 		break;
 	case UP:
-		ChangeRowUpOrDown(1);
+		ChangeRowUpOrDown(-1);
 		break;
 	case DOWN:
-		ChangeRowUpOrDown(-1);
+		ChangeRowUpOrDown(1);
 		break;
 	}
 
@@ -283,13 +315,18 @@ Tetris_Modes_StateTriggers TetrisLevelSelect_Update(u32 TimePassed){
 
 	WriteStartLevelToFrameBuffer();
 	WriteMusicOnOffToFrameBuffer();
+	WriteViewHighScoresToFrameBuffer();
 
-	UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(2,3,0,84);
+	UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(2,4,0,84);
 
 	gfxFinishDrawing(&gLcdScreen);
 
 
 	if(buttonBState == GPIO_PIN_SET && (_buttonReleasedSinceEnteringState == true)){
+
+		if(_selectedRow == ViewHighScores){
+			return LookAtHighScores;
+		}
 		TetrisMain_SetStateMachineDataPointer(&_startLevel);
 		return StartPlaying;
 	}

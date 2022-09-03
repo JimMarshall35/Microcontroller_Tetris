@@ -12,6 +12,7 @@
 #include "LcdGraphics.h"
 #include "AnalogStick.h"
 #include "TetrisPersistantData.h"
+#include "TetrisHighScorePrintHelpers.h"
 
 #define ENTER_INITIAL_BLINK_PERIOD 500
 
@@ -25,24 +26,6 @@ static u32 _blinkTimer = 0;
 static bool _blinkState = true; /* True if the initial being set is currently drawn to frame buffer, false otherwise */
 static bool _isAnalogStickExtended = false; /* Is the analog stick moved far enough in any one direction to count as "extended" */
 
-static void WriteSingleHighScoreToFrameBuffer(const HighScore* highScore, u8 line){
-	char highScoreLineBuffer[10];
-	sprintf(highScoreLineBuffer,"%c%c%c %lu",
-		highScore->Initials[0],
-		highScore->Initials[1],
-		highScore->Initials[2],
-		highScore->Score);
-	gfxWriteTextLineToFrameBuffer(line,0,highScoreLineBuffer);
-
-}
-
-static void DrawHighScoresToFrameBuffer(){
-	for(u32 i=0; i < NUM_HIGHSCORES_SAVED; i++){
-		const HighScore* highScore = TetrisHighScores_GetHighScoreAtIndex(i);
-		WriteSingleHighScoreToFrameBuffer(highScore, i+1);
-	}
-
-}
 
 static void BlinkInitialBeingSet(){
 	if(_blinkState == true){
@@ -56,7 +39,7 @@ static void BlinkInitialBeingSet(){
 		_blinkState = true;
 		u8 row = _newHighScoreRank + 1;
 		const HighScore* highScore = TetrisHighScores_GetHighScoreAtIndex(_newHighScoreRank);
-		WriteSingleHighScoreToFrameBuffer(highScore, row);
+		Tetris_WriteSingleHighScoreToFrameBuffer(highScore, row);
 		UpdateScreenRegionsToUpdate_FrameBufferRectCopiedToScreen(row,row,0,LCD_PCD8544_CHAR_WIDTH*3);
 
 	}
@@ -131,7 +114,7 @@ void TetrisEnterHighScore_OnEnter(void* stateMachineDataPtr, Tetris_Modes_States
 
 
 	gfxWriteTextLineToFrameBuffer(0,0,"High Score");
-	DrawHighScoresToFrameBuffer();
+	Tetris_DrawHighScoresToFrameBuffer();
 	gfxFinishDrawing(&gLcdScreen);
 	_settingInitial = 0;
 	_blinkTimer = 0;

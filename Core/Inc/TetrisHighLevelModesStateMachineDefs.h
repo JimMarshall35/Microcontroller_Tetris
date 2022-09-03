@@ -17,7 +17,7 @@ typedef enum{
 	GameOverNewHighScore,
 	GoToLevelSelectScreen,
 	HighScoreEntered,
-
+	LookAtHighScores,
 	NumTriggers
 }Tetris_Modes_StateTriggers;
 
@@ -26,6 +26,7 @@ typedef enum{
 	Playing,
 	PlayAgainDialogue,
 	EnterNewHighScoreScreen,
+	ViewHighScoresScreen,
 	NoState,
 
 	NumStates,

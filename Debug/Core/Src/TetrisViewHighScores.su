@@ -1,0 +1,3 @@
+../Core/Src/TetrisViewHighScores.c:18:28:TetrisViewHighScores_Update	24	static
+../Core/Src/TetrisViewHighScores.c:33:6:TetrisViewHighScores_OnEnter	16	static
+../Core/Src/TetrisViewHighScores.c:43:6:TetrisViewHighScores_OnExit	16	static
