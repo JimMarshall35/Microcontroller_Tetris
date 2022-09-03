@@ -18,7 +18,6 @@
 extern  ADC_HandleTypeDef hadc2;
 extern LCD_PCD8544_screen_t gLcdScreen;
 
-
 static u32 _newHighScore;
 static u8 _newHighScoreRank;
 static i8 _settingInitial = 0;
