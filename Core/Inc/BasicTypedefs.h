@@ -16,6 +16,8 @@ typedef float f32;
 #define true 1
 #define false 0
 
+#define TOGGLE_BOOL(b) b = (b == true) ? false : true
+
 
 
 #endif /* BASIC_TYPEDEFS_H */

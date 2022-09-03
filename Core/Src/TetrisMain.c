@@ -19,7 +19,7 @@
 
 #define LEVEL_SELECT_NUM_TRANSITIONS 1
 #define PLAYING_NUM_TRANSITIONS 2
-#define PLAY_AGAIN_SCREEN_NUM_TRANSITIONS 1
+#define PLAY_AGAIN_SCREEN_NUM_TRANSITIONS 2
 #define ENTER_NEW_HIGH_SCORE_SCREEN_NUM_TRANSITIONS 1
 
 
@@ -30,20 +30,21 @@ void TetrisMain_SetStateMachineDataPointer(void* dataPtr){
 }
 
 const Transition _levelSelectTransitions[LEVEL_SELECT_NUM_TRANSITIONS] = {
-		{ Playing, StartPlaying }
+		{ Playing, StartPlaying },
 };
 
 const Transition _playingTransitions[PLAYING_NUM_TRANSITIONS] = {
 		{ PlayAgainDialogue, GameOver },
-		{ EnterNewHighScoreScreen, GameOverNewHighScore}
+		{ EnterNewHighScoreScreen, GameOverNewHighScore},
 };
 
 const Transition _playAgainScreenTransitions[PLAY_AGAIN_SCREEN_NUM_TRANSITIONS] = {
-		{ Playing, StartPlaying }
+		{ Playing, StartPlaying },
+		{ LevelSelect, GoToLevelSelectScreen },
 };
 
 const Transition _enterNewHighScoreScreenTransitions[ENTER_NEW_HIGH_SCORE_SCREEN_NUM_TRANSITIONS] ={
-		{ PlayAgainDialogue, HighScoreEntered }
+		{ PlayAgainDialogue, HighScoreEntered },
 };
 
 static State _states[NumStates];

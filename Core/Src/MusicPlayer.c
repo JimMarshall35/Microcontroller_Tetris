@@ -9,11 +9,7 @@
 
 #define MUSIC_SEQUENCER_INTERVAL_MILLISECONDS 10
 
-typedef enum{
-	STOPPED,
-	PLAYING,
-	PAUSED
-}PlayerState;
+
 
 static TIM_HandleTypeDef* _timer;
 
@@ -36,6 +32,9 @@ void MusicPlayer_Init(TIM_HandleTypeDef* timer){
 }
 
 void MusicPlayer_StartTune(MusicNote* notes, u32 numNotes){
+	if(_musicPlayerState != STOPPED){
+		return;
+	}
 	_currentTune = notes;
 	_currentTuneNumNotes = numNotes;
 	_musicPlayerState = PLAYING;
@@ -45,10 +44,11 @@ void MusicPlayer_StartTune(MusicNote* notes, u32 numNotes){
 }
 
 void MusicPlayer_TimerISR(){
-	_tuneTimer += MUSIC_SEQUENCER_INTERVAL_MILLISECONDS;
 	if(_musicPlayerState != PLAYING){
 		return;
 	}
+	_tuneTimer += MUSIC_SEQUENCER_INTERVAL_MILLISECONDS;
+
 
 
 	if(_thisNoteStarted == false){
@@ -59,8 +59,9 @@ void MusicPlayer_TimerISR(){
 		_thisNoteStarted = true;
 	}
 	else{
-		u32 duration = _currentTunePosition == 0 ? _currentTune[_currentTuneNumNotes - 1].duration : _currentTune
-				[_currentTunePosition - 1].duration;
+		u32 duration = _currentTunePosition == 0 ?
+				_currentTune[_currentTuneNumNotes - 1].duration :
+				_currentTune[_currentTunePosition - 1].duration;
 		if(_thisNoteTimer > duration){
 			_thisNoteStarted = false;
 			_thisNoteTimer = 0;
@@ -68,4 +69,27 @@ void MusicPlayer_TimerISR(){
 		_thisNoteTimer += MUSIC_SEQUENCER_INTERVAL_MILLISECONDS;
 	}
 
+}
+
+void MusicPlayer_StopTune(){
+	if(_musicPlayerState == PLAYING){
+		_musicPlayerState = STOPPED;
+	}
+}
+
+void MusicPlayer_PauseTune(){
+	if(_musicPlayerState == PLAYING){
+		_musicPlayerState = PAUSED;
+		Buzzer_Note(0);
+	}
+}
+
+void MusicPlayer_UnPauseTune(){
+	if(_musicPlayerState == PAUSED){
+		_musicPlayerState = PLAYING;
+	}
+}
+
+PlayerState MusicPlayer_GetState(){
+	return _musicPlayerState;
 }

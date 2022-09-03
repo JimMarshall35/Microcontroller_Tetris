@@ -1,4 +1,8 @@
-../Core/Src/TetrisPlayAgainScreen.c:16:28:TetrisPlayAgain_Update	24	static
-../Core/Src/TetrisPlayAgainScreen.c:28:6:TetrisPlayAgain_Init	4	static
-../Core/Src/TetrisPlayAgainScreen.c:32:6:TetrisPlayAgain_OnEnter	16	static
-../Core/Src/TetrisPlayAgainScreen.c:43:6:TetrisPlayAgain_OnExit	16	static
+../Core/Src/TetrisPlayAgainScreen.c:27:20:GetPlayAgainChoiceStartString	4	static
+../Core/Src/TetrisPlayAgainScreen.c:31:20:GetPlayAgainChoiceEndString	4	static
+../Core/Src/TetrisPlayAgainScreen.c:35:13:IncrementBlinkTimer	16	static
+../Core/Src/TetrisPlayAgainScreen.c:43:13:WritePlayAgainChoicetoFrameBuffer	40	static
+../Core/Src/TetrisPlayAgainScreen.c:56:28:TetrisPlayAgain_Update	32	static
+../Core/Src/TetrisPlayAgainScreen.c:86:6:TetrisPlayAgain_Init	4	static
+../Core/Src/TetrisPlayAgainScreen.c:90:6:TetrisPlayAgain_OnEnter	16	static
+../Core/Src/TetrisPlayAgainScreen.c:105:6:TetrisPlayAgain_OnExit	16	static

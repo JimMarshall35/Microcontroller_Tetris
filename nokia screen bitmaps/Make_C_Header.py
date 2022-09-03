@@ -10,7 +10,7 @@ def AddByteFromVerticalSlice(outputArray, x, y, rawData, pixelStride=4):
             outputByte |= (1 << rowAddition)
     outputArray.append(outputByte)
     
-filepath = "YOUR FILE PATH TO A 84 x 48 PIXEL BLACK AND WHITE PNG"
+filepath = "TetrisTitleInverted.png"
 
 rawData = []
 try:

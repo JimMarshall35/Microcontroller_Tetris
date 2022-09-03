@@ -141,7 +141,7 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-   TetrisMain_Init();
+
 
    //HAL_TIM_RegisterCallback(&htim3,HAL_TIM_PERIOD_ELAPSED_CB_ID,&MusicPlayer_TimerISR);
 
@@ -168,7 +168,6 @@ int main(void)
 		   {C4,1049/TEMPO_MODIFIER},
 		   {A3,1014/TEMPO_MODIFIER},
 		   {A3,1014/TEMPO_MODIFIER},
-
 
 		   {BUZZER_OFF,1010/TEMPO_MODIFIER},
 		   {D4,1014/TEMPO_MODIFIER},
@@ -210,6 +209,8 @@ int main(void)
    };
 
    MusicPlayer_StartTune(&tetrisTune[0],TEST_TUNE_LENGTH);
+
+   TetrisMain_Init();
 
    while (1)
    {

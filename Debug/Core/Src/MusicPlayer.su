@@ -1,3 +1,7 @@
-../Core/Src/MusicPlayer.c:34:6:MusicPlayer_Init	16	static
-../Core/Src/MusicPlayer.c:38:6:MusicPlayer_StartTune	16	static
-../Core/Src/MusicPlayer.c:47:6:MusicPlayer_TimerISR	16	static
+../Core/Src/MusicPlayer.c:30:6:MusicPlayer_Init	16	static
+../Core/Src/MusicPlayer.c:34:6:MusicPlayer_StartTune	16	static
+../Core/Src/MusicPlayer.c:46:6:MusicPlayer_TimerISR	16	static
+../Core/Src/MusicPlayer.c:74:6:MusicPlayer_StopTune	4	static
+../Core/Src/MusicPlayer.c:80:6:MusicPlayer_PauseTune	8	static
+../Core/Src/MusicPlayer.c:87:6:MusicPlayer_UnPauseTune	4	static
+../Core/Src/MusicPlayer.c:93:13:MusicPlayer_GetState	4	static
