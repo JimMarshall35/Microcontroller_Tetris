@@ -15,6 +15,6 @@ features:
 - plays the tetris music
 
 adds graphical capabilities to a nokia 5110 screen driver by github user evovch
-- draw lines, circles, sqares, bitmaps, see LCDGraphics.c, builds on the lcd_pcd8544_ll.c low level driver, also uses the existing text drawing functionality in lcd_pcd8544.c
+- draw lines, circles, squares, bitmaps, see LCDGraphics.c, builds on the lcd_pcd8544_ll.c low level driver, also uses the existing text drawing functionality in lcd_pcd8544.c
 
 https://github.com/evovch/STM32-LCD_PCD8544
