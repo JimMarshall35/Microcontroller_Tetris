@@ -27,6 +27,7 @@ Saves high score to flash with wear leveling, filling up the final 2kb page with
 Future work
 - Hardware
   - build a new one with
+    - on/off switch and/or pot for backlight
     - dpad
     - battery
     - enclosure
