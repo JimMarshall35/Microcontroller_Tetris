@@ -35,7 +35,7 @@ Future work
   - improve wear levelling as described above
   - add more music, make a converter for midi files (probably a python script)
   - add fancier graphics
-  - minimise screen re-drawing in a few places, decide whether regions to refresh should be specified manually or automatically at the library / driver level as it currently is (implemented half arsed-ly)
+  - minimise screen re-drawing in a few places, decide whether regions to refresh should be specified manually or automatically at the library / driver level as it currently is (this is inconsistant at the moment)
   - change build scripts to add default high scores to the correct place in flash. Must currently be bootstrapped with temporarry code or manually edited in with STM cube programmer when the chip is first programmed
 - hardware and software
   - change to use a d pad
