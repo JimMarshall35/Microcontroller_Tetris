@@ -33,8 +33,10 @@ Future work
     - enclosure
     - custom pcb, not dev board and prototype board
     - less powerful microcontroller (doesn't need floating point hardware for example)
+    - a second buzzer
 - software
   - improve wear levelling as described above
+  - program in the second part of the tetris tune, the bassline, with either a physical second buzzer or a way to emulate two voices on one buzzer by dithering
   - add more music, make a converter for midi files (probably a python script)
   - add fancier graphics
   - minimise screen re-drawing in a few places, decide whether regions to refresh should be specified manually or automatically at the library / driver level as it currently is (this is inconsistant at the moment)
