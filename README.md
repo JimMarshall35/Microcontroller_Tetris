@@ -20,4 +20,4 @@ adds graphical capabilities to a nokia 5110 screen driver by github user evovch
 https://github.com/evovch/STM32-LCD_PCD8544
 
 
-Plays the tetris music by using an interrupt to automatically toggle a pin generating a square wave with no involvement from the CPU, and another interrupt with an ISR to sequence the notes that make up the tune
+Plays the tetris music by using a timer interrupt to automatically toggle a pin generating a square wave with no involvement from the CPU, and another timer interrupt with an ISR and a longer period between interrupts to sequence the notes that make up the tune
