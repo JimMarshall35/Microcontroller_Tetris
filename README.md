@@ -36,5 +36,6 @@ Future work
   - sdd more music, make a converter for midi files (probably a python script)
   - add fancier graphics
   - minimise screen re-drawing in a few places
+  - change build scripts to add default high scores to the correct place in flash. Must currently be bootstrapped with temporarry code or manually edited in with STM cube programmer
 - hardware and software
   - change to use a d pad
