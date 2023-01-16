@@ -21,3 +21,5 @@ https://github.com/evovch/STM32-LCD_PCD8544
 
 
 Plays the tetris music by using a timer interrupt to automatically toggle a pin generating a square wave with no involvement from the CPU, and another timer interrupt with an ISR and a longer period between interrupts to sequence the notes that make up the tune
+
+Saves high score to flash with wear leveling, filling up the final 2kb page with high scores before deleting it when full (it does this sub-optimally, saving the entire block of six high scores each time when it could only save the highest one - to be revisited)
