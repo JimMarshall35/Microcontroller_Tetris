@@ -33,9 +33,9 @@ Future work
     - custom pcb, not dev board and prototype board
 - software
   - improve wear levelling as described above
-  - sdd more music, make a converter for midi files (probably a python script)
+  - add more music, make a converter for midi files (probably a python script)
   - add fancier graphics
-  - minimise screen re-drawing in a few places
+  - minimise screen re-drawing in a few places, decide whether it should be done manually or at the library level as it currently is (implemented half arsed-ly)
   - change build scripts to add default high scores to the correct place in flash. Must currently be bootstrapped with temporarry code or manually edited in with STM cube programmer when the chip is first programmed
 - hardware and software
   - change to use a d pad
