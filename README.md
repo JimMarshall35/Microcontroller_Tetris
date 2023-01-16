@@ -38,6 +38,5 @@ Future work
   - add fancier graphics
   - minimise screen re-drawing in a few places, decide whether regions to refresh should be specified manually or automatically at the library / driver level as it currently is (this is inconsistant at the moment)
   - change build scripts to add default high scores to the correct place in flash. Must currently be bootstrapped with temporarry code or manually edited in with STM cube programmer when the chip is first programmed
-  - reduce power consumption, i think current delay function used just waits in a loop when it could use some low power sleep mode or be interrupt driven
-- hardware and software
+  - reduce power consumption, i think current delay function used just waits in a loop when it could probably use some low power sleep mode 
   - change to use a d pad
