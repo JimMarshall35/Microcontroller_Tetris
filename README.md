@@ -5,7 +5,7 @@ tetris for an stm32 microcontroller - uses the stm HAL.
 parts needed:
 - nokia 5110 screen
 - button
-- analog stick (it would be better with a d-pad but I only an analog stick and only one button)
+- analog stick (it would be better with a d-pad but I only had an analog stick and only one button)
 - piezoelectric buzzer (passive)
 - stm32 f303k8 nucleo development board (would probably work with others)
 
@@ -31,11 +31,13 @@ Future work
     - battery
     - enclosure
     - custom pcb, not dev board and prototype board
+    - less powerful microcontroller (doesn't need floating point hardware for example)
 - software
   - improve wear levelling as described above
   - add more music, make a converter for midi files (probably a python script)
   - add fancier graphics
   - minimise screen re-drawing in a few places, decide whether regions to refresh should be specified manually or automatically at the library / driver level as it currently is (this is inconsistant at the moment)
   - change build scripts to add default high scores to the correct place in flash. Must currently be bootstrapped with temporarry code or manually edited in with STM cube programmer when the chip is first programmed
+  - reduce power consumption, i think current delay function used just waits in a loop when it could use some low power sleep mode or be interrupt driven
 - hardware and software
   - change to use a d pad
